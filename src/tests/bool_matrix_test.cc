@@ -33,3 +33,10 @@ TEST(BoolMatrix, print_data_02) {
   matr.setValue(1, 1, true);
   matr.printData();
 }
+
+TEST(BoolMatrix, clear) {
+  s21::BoolMatrix matr(5, 5);
+  matr.clear();
+  ASSERT_EQ(matr.getCols(), 0);
+  ASSERT_EQ(matr.getRows(), 0);
+}

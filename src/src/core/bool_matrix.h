@@ -1,5 +1,5 @@
-#ifndef A1_MAZE_CPP_CORE_CAVE_H_
-#define A1_MAZE_CPP_CORE_CAVE_H_
+#ifndef A1_MAZE_CPP_CORE_BOOLMATRIX_H_
+#define A1_MAZE_CPP_CORE_BOOLMATRIX_H_
 
 #include <vector>
 
@@ -14,10 +14,11 @@ class BoolMatrix {
   int getCols() const noexcept;
   int getRows() const noexcept;
   void setValue(int row, int col, bool value);
+  void clear();
 
  private:
   std::vector<std::vector<bool>> data_;
 };
 }  // namespace s21
 
-#endif  // A1_MAZE_CPP_CORE_CAVE_H_
+#endif  // A1_MAZE_CPP_CORE_BOOLMATRIX_H_

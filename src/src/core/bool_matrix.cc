@@ -41,4 +41,11 @@ void BoolMatrix::setValue(int row, int col, bool value) {
   data_[row][col] = value;
 }
 
+void BoolMatrix::clear() {
+  for (std::vector<bool> &row : data_) {
+    row.clear();
+  }
+  data_.clear();
+}
+
 }  // namespace s21
