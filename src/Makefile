@@ -49,7 +49,7 @@ $(DIR_OBJ)/%.o: $(DIR_CORE)/%.cc
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 # BUILD CORE TESTS
-tests: core_test
+tests: clean core_test
 core_test: $(TEST_EXECUTABLE)
 	@./$(TEST_EXECUTABLE)
 
