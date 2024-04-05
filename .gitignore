@@ -1,5 +1,6 @@
 .cache
 .DS_Store
+src/build
 
 # Prerequisites
 *.d

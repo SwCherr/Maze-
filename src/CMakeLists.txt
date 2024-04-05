@@ -21,7 +21,7 @@ set(SFML_BUILD_DOC OFF CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(sfml)
 
 # Добавляем ваш исполняемый файл
-add_executable(MyExecutable src/main.cc)
+add_executable(Maze src/main.cc)
 
 # Линкуем ваш исполняемый файл с библиотеками SFML
 target_link_libraries(MyExecutable sfml-graphics sfml-audio sfml-network sfml-window sfml-system)
