@@ -12,9 +12,11 @@ class Maze : public AbstractGrid {
 
   int getRows() const noexcept;
   int getCols() const noexcept;
+  void printData() const;
 
   bool initFromFile(const std::string& filename);
-  // generateMaze();
+  void generateMaze(int rows, int cols);
+  bool checkSecondEmptyBorder(std::vector<int> numbers, int rows, int index);
   // solutionMaze();
   // mazeSolvingTraining();
 
