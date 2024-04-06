@@ -27,21 +27,30 @@ set(PROJECT_SOURCES
     src/core/main_window.cc
     src/core/main_window.h
 
-    src/core/button_model.cc
-    src/core/button_model.h
+    src/view/button.h
+    src/view/button.cc
+    src/view/ui_component.h
+    src/view/ui_composite.h
+    src/view/ui_composite.cc
 
-    src/view/view.h
-
-    src/view/button_view.cc
-    src/view/button_view.h
+    src/core/commands/command.h
+    src/core/commands/open_file_command.h
 )
-
 
 # Добавляем SFML в проект
 FetchContent_MakeAvailable(sfml)
 
-# Добавляем ваш исполняемый файл
+# Путь к директории tinyfiledialogs
+set(TINYFILEDIALOGS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include/libtinyfiledialogs)
+
+# Добавляем исполняемый файл проекта
 add_executable(Maze ${PROJECT_SOURCES})
 
-# Линкуем ваш исполняемый файл с библиотеками SFML
+# Добавляем директории с заголовочными файлами
+target_include_directories(Maze PRIVATE ${TINYFILEDIALOGS_DIR})
+
+# Линкуем исполняемый файл с библиотеками SFML
 target_link_libraries(Maze sfml-graphics sfml-audio sfml-network sfml-window sfml-system)
+
+# Если tinyfiledialogs не предоставляет свой собственный CMakeLists.txt, добавляем исходные файлы напрямую
+target_sources(Maze PRIVATE ${TINYFILEDIALOGS_DIR}/tinyfiledialogs.c)

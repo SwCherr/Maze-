@@ -4,19 +4,17 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 
-#include "../view/view.h"
+#include "../view/ui_composite.h"
 
 namespace s21 {
 class MainWindow {
  public:
   MainWindow();
-  void addView(View* view);
-  void draw();
   void run();
 
  private:
   sf::RenderWindow window_;
-  std::vector<View*> views_;
+  UIComposite root_ui_component_;
 };
 }  // namespace s21
 
