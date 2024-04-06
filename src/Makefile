@@ -38,14 +38,14 @@ TEST_EXECUTABLE = $(DIR_BUILD)/core_test
 all: core_lib core_test
 
 run:
-	cd build && ./Maze
+	cd $(DIR_BUILD) && ./Maze
 
 build:
 	mkdir -p $(DIR_BUILD)
-	cd build && cmake .. && make
+	cd $(DIR_BUILD) && cmake .. && make
 
 install: build
-	cd build && make
+	cd $(DIR_BUILD) && make
 
 # BUILD CORE LIB
 core_lib: $(CORE_LIB)
