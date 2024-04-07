@@ -19,7 +19,7 @@ void Maze::generateMaze(int rows, int cols) {
   for (int i = 0; i < rows; i++) {
     generateVertical(numbers, i, cols);
     generateHorizontal(numbers, i, cols);
-    preprocessingBeforeGeneration(numbers, iter_nums, i);
+    preprocessingBeforeNextGeneration(numbers, iter_nums, i);
   }
 }
 
@@ -49,7 +49,7 @@ void Maze::generateHorizontal(std::vector<int> &numbers, int curr_rows, int cols
   }
 }
 
-void Maze::preprocessingBeforeGeneration(std::vector<int> &numbers, int &iter_nums, int curr_rows) {
+void Maze::preprocessingBeforeNextGeneration(std::vector<int> &numbers, int &iter_nums, int curr_rows) {
   if (curr_rows < (getRows()-1)) {
     for (int j = 0; j < getCols(); j++) {
       if (horizontal_[curr_rows][j])

@@ -22,7 +22,7 @@ class Maze : public AbstractGrid {
   void generateNumbers(std::vector<int> &numbers, int iter_nums, int cols);
   void generateVertical(std::vector<int> &numbers, int curr_rows, int cols);
   void generateHorizontal(std::vector<int> &numbers, int curr_rows, int cols);
-  void preprocessingBeforeGeneration(std::vector<int> &numbers, int &iter_nums, int curr_rows);
+  void preprocessingBeforeNextGeneration(std::vector<int> &numbers, int &iter_nums, int curr_rows);
 
 
   // solutionMaze();
