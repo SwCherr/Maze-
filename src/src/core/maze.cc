@@ -7,56 +7,61 @@
 using namespace s21;
 
 void Maze::generateMaze(int rows, int cols) {
+  srand(time(NULL)); // Генерирует случ. число, используя текущую дату как параметр
+  std::vector<int> numbers(cols);
   vertical_.resize(rows, std::vector<bool>(cols));
   horizontal_.resize(rows, std::vector<bool>(cols));
 
-  std::vector<int> numbers(cols);
   int iter_nums = 0;
-  srand(time(NULL)); // Генерирует случ. число, используя текущую дату как параметр
-  for (; iter_nums < cols; iter_nums++) {
+  for (; iter_nums < cols; iter_nums++)
     numbers[iter_nums] = iter_nums;
-  }
 
-  // Генерация вертикалей
   for (int i = 0; i < rows; i++) {
-    for (int j = 0; j < cols; j++) {
-      if (rand() % 2 == 1) { // 1.1 Стенку справа ставим  
-        vertical_[i][j] = true;
-      } else { // Стенку справа не ставим  
-        if (j < cols-1) { // поверяем не крайняя ли ячейка
-          if (numbers[j] == numbers[j+1])
-            vertical_[i][j] = true;
-          else {
-            unionOfSets(numbers, j, cols);
-          }
-        } else vertical_[i][j] = true; // устанавливаем крайнюю правую стену
-      }
-    }
+    generateVertical(numbers, i, cols);
+    generateHorizontal(numbers, i, cols);
+    preprocessingBeforeGeneration(numbers, iter_nums, i);
+  }
+}
 
-    for (int j = 0; j < cols; j++) {
-      if (rand() % 2 == 1) {
-        if (checkSecondEmptyBorder(numbers, i, j)) {
-          horizontal_[i][j] = true;
-        }
-      }
-    }
-
-    // Пункт 5 - обработка перед генерацией следующей строки
-    if (i < rows-1) {
-      for (int j = 0; j < cols; j++) {
-        if (horizontal_[i][j])
-          numbers[j] = iter_nums++;
-      }
-    } else {
-    // Пункт 5 - обработка последней строки
-      for (int j = 0; j < cols; j++) {
-        horizontal_[i][j] = true;
-
-        if (j < cols-1) {
-          if (numbers[j] != numbers[j+1])
-            vertical_[i][j] = false;
+void Maze::generateVertical(std::vector<int> &numbers, int curr_rows, int cols) {
+  for (int j = 0; j < cols; j++) {
+    if (rand() % 2 == 1) { // 1.1 Стенку справа ставим  
+      vertical_[curr_rows][j] = true;
+    } else { // Стенку справа не ставим  
+      if (j < cols-1) { // поверяем не крайняя ли ячейка
+        if (numbers[j] == numbers[j+1])
+          vertical_[curr_rows][j] = true;
+        else {
           unionOfSets(numbers, j, cols);
         }
+      } else vertical_[curr_rows][j] = true; // устанавливаем крайнюю правую стену
+    }
+  }
+}
+
+void Maze::generateHorizontal(std::vector<int> &numbers, int curr_rows, int cols) {
+  for (int j = 0; j < cols; j++) {
+    if (rand() % 2 == 1) {
+      if (checkSecondEmptyBorder(numbers, curr_rows, j)) {
+        horizontal_[curr_rows][j] = true;
+      }
+    }
+  }
+}
+
+void Maze::preprocessingBeforeGeneration(std::vector<int> &numbers, int &iter_nums, int curr_rows) {
+  if (curr_rows < (getRows()-1)) {
+    for (int j = 0; j < getCols(); j++) {
+      if (horizontal_[curr_rows][j])
+        numbers[j] = iter_nums++;
+    }
+  } else {
+    for (int j = 0; j < getCols(); j++) {
+      horizontal_[curr_rows][j] = true;
+      if (j < getCols()-1) {
+        if (numbers[j] != numbers[j+1])
+          vertical_[curr_rows][j] = false;
+        unionOfSets(numbers, j, getCols());
       }
     }
   }
