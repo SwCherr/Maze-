@@ -38,6 +38,7 @@ void Button::handleEvent(const sf::Event& event,
     if (is_pressed_ && lastPressed == this) {
       is_pressed_ = false;
       setBackgroundColor(sf::Color::White);
+      mouse_released_command_->execute();
       std::cout << "released\n";
     }
   }
@@ -45,10 +46,6 @@ void Button::handleEvent(const sf::Event& event,
 
 bool Button::isMouseOver(const sf::Vector2f& mouse_pos) const {
   sf::FloatRect bounds(position_.x, position_.y, size_.x, size_.y);
-  std::cout << position_.x << ' ' << position_.y << '\n';
-  std::cout << size_.x << ' ' << size_.y << '\n';
-  std::cout << mouse_pos.x << ' ' << mouse_pos.y << '\n';
-  std::cout << bounds.getPosition().x << ' ' << bounds.getPosition().y << '\n';
   return bounds.contains(mouse_pos);
 }
 

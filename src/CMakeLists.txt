@@ -27,6 +27,11 @@ set(PROJECT_SOURCES
     src/core/main_window.cc
     src/core/main_window.h
 
+    src/core/abstract_grid.h
+    src/core/abstract_grid.cc
+    src/core/maze.cc
+    src/core/maze.h
+
     src/view/label.h
     src/view/label.cc
     src/view/button.h
@@ -37,6 +42,7 @@ set(PROJECT_SOURCES
 
     src/core/commands/command.h
     src/core/commands/open_file_command.h
+    src/core/commands/open_maze_command.h
 )
 
 # Добавляем SFML в проект
