@@ -12,13 +12,13 @@ namespace s21 {
 class OpenFileCommand : public Command {
  public:
   void execute() override {
-    const char* filterPatterns[2] = {"*.png", "*.jpg"};
+    const char* filterPatterns[0];
     const char* filePath =
         tinyfd_openFileDialog("Open Image",    // Title
-                              "",              // Default path
-                              2,               // Number of filter patterns
+                              "resources",     // Default path
+                              0,               // Number of filter patterns
                               filterPatterns,  // Filter patterns
-                              "Image files",   // Single filter description
+                              "Text files",    // Single filter description
                               0                // Allow multiple file selection
         );
 

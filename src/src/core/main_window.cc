@@ -5,21 +5,19 @@
 #include <memory>
 
 #include "../view/button.h"
+#include "SFML/Graphics/Color.hpp"
 #include "SFML/Window/Event.hpp"
 #include "commands/command.h"
 #include "commands/open_file_command.h"
 
 namespace s21 {
-MainWindow::MainWindow() : window_(sf::VideoMode(800, 600), "Maze") {
-  Button* btn1 = new Button;
-  Button* open_file_btn = new Button;
-  btn1->setPosition({100, 100});
-  open_file_btn->setLable("open file");
-  std::unique_ptr<Command> open_file_command =
-      std::make_unique<OpenFileCommand>();
-
-  open_file_btn->setCommand(std::move(open_file_command));
-  root_ui_component_.addComponent(btn1);
+MainWindow::MainWindow()
+    : window_(sf::VideoMode(kWindowWidth, kWindowHeight), "Maze") {
+  Label* render_window = new Label({50, 50}, {500, 500});
+  Button* open_file_btn =
+      new Button({600, 200}, {120, 50}, sf::Color{100, 100, 100}, "Open file");
+  open_file_btn->setMousePressCommand(std::make_unique<OpenFileCommand>());
+  root_ui_component_.addComponent(render_window);
   root_ui_component_.addComponent(open_file_btn);
 }
 

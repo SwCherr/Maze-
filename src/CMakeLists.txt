@@ -27,6 +27,8 @@ set(PROJECT_SOURCES
     src/core/main_window.cc
     src/core/main_window.h
 
+    src/view/label.h
+    src/view/label.cc
     src/view/button.h
     src/view/button.cc
     src/view/ui_component.h

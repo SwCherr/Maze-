@@ -42,6 +42,7 @@ run:
 
 build:
 	mkdir -p $(DIR_BUILD)
+	cp -r resources $(DIR_BUILD)/resources
 	cd $(DIR_BUILD) && cmake .. && make
 
 install: build
