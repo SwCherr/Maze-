@@ -17,6 +17,11 @@ void MazeView::draw(sf::RenderTarget& target) const {
 
     for (int row = 0; row < maze_->getRows(); ++row) {
       for (int col = 0; col < maze_->getCols(); ++col) {
+        if (maze_.ge) }
+    }
+
+    for (int row = 0; row < maze_->getRows(); ++row) {
+      for (int col = 0; col < maze_->getCols(); ++col) {
       }
     }
   }
