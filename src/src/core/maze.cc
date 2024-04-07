@@ -7,79 +7,39 @@
 using namespace s21;
 
 void Maze::generateMaze(int rows, int cols) {
-  srand(time(NULL)); // Генерирует случайное число, используя текущую дату как параметр
-  std::vector<int> numbers(cols);
-
-  int iter_nums = 0;
-  // std::cout << "numbers:\n"; // --
-  // std::cout << ' '; // --
-  for (; iter_nums <= cols; iter_nums++) {
-    numbers[iter_nums] = iter_nums;
-    // printf("%d ", numbers[iter_nums]); // --
-  }
-
-  // std::cout << '\n'; // --
-
-
-
   vertical_.resize(rows, std::vector<bool>(cols));
   horizontal_.resize(rows, std::vector<bool>(cols));
 
+  std::vector<int> numbers(cols);
+  int iter_nums = 0;
+  srand(time(NULL)); // Генерирует случ. число, используя текущую дату как параметр
+  for (; iter_nums < cols; iter_nums++) {
+    numbers[iter_nums] = iter_nums;
+  }
+
   // Генерация вертикалей
   for (int i = 0; i < rows; i++) {
-    // std::cout << " vertical_:\n"; // --
-    // std::cout << ' '; // --
     for (int j = 0; j < cols; j++) {
-      // 1.1 Стенку справа ставим  
-      if (rand() % 2 == 1) {
-        // printf("1 "); // --
+      if (rand() % 2 == 1) { // 1.1 Стенку справа ставим  
         vertical_[i][j] = true;
-
-      // Стенку справа не ставим  
-      } else {
-        // printf("0 "); // --
-        // поверяем не крайняя ли ячейка
-        if (j < cols-1) {
-          // 1.2 если текущая ячейка и ячейка справа принадлежат одному множеству
+      } else { // Стенку справа не ставим  
+        if (j < cols-1) { // поверяем не крайняя ли ячейка
           if (numbers[j] == numbers[j+1])
             vertical_[i][j] = true;
           else {
-            // 1.3 объединияем множества - вынести общий код
-            int num_right = numbers[j+1];
-            for (int index = 0; index < cols; index++) {
-              if (numbers[index] == num_right) 
-                numbers[index] = numbers[j];
-            }
+            unionOfSets(numbers, j, cols);
           }
         } else vertical_[i][j] = true; // устанавливаем крайнюю правую стену
       }
     }
 
-
-    // std::cout << '\n'; // --
-
-    // --------------------------
-    // std::cout << " numbers after vertical_:\n"; // --
-    // std::cout << ' '; // --
-    // for (int j = 0; j < cols; j++) {
-    //   printf("%d ", numbers[j]);
-    // }
-    // std::cout << '\n'; // --
-    // --------------------------
-
-    // Генерация горизонталей
-    // std::cout << " horizintal_:\n"; // --
-    // std::cout << ' '; // --
     for (int j = 0; j < cols; j++) {
       if (rand() % 2 == 1) {
-        // printf("1 "); // --
         if (checkSecondEmptyBorder(numbers, i, j)) {
           horizontal_[i][j] = true;
         }
       }
     }
-    // std::cout << '\n'; // --
-
 
     // Пункт 5 - обработка перед генерацией следующей строки
     if (i < rows-1) {
@@ -93,35 +53,24 @@ void Maze::generateMaze(int rows, int cols) {
         horizontal_[i][j] = true;
 
         if (j < cols-1) {
-          // 5.1
           if (numbers[j] != numbers[j+1])
             vertical_[i][j] = false;
-
-          // 5.2 объединияем множества - вынести общий код
-          int num_right = numbers[j+1];
-          for (int index = 0; index < cols; index++) {
-            if (numbers[index] == num_right) 
-              numbers[index] = numbers[j];
-          }
+          unionOfSets(numbers, j, cols);
         }
       }
     }
-
-    // --------------------------
-    // std::cout << " numbers after horizontal_:\n"; // --
-    // std::cout << ' '; // --
-    // for (int j = 0; j < cols; j++) {
-    //   printf("%d ", numbers[j]);
-    // }
-    // std::cout << '\n'; // --
-    // --------------------------
-    // std::cout << '\n'; // --
-
   }
 }
 
-
-
+void Maze::unionOfSets(std::vector<int> &numbers, int index_cur, int cols) {
+  if (index_cur < cols-1) {
+    int num_right = numbers[index_cur+1];
+    for (int index = 0; index < cols; index++) {
+      if (numbers[index] == num_right) 
+        numbers[index] = numbers[index_cur];
+    }
+  }
+}
 
 bool Maze::checkSecondEmptyBorder(std::vector<int> numbers, int rows, int cols_in) {
   bool result_check = false;
