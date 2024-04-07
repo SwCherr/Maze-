@@ -40,13 +40,10 @@ all: core_lib core_test
 run:
 	cd $(DIR_BUILD) && ./Maze
 
-build:
+install:
 	mkdir -p $(DIR_BUILD)
 	cp -r resources $(DIR_BUILD)/resources
 	cd $(DIR_BUILD) && cmake .. && make
-
-install: build
-	cd $(DIR_BUILD) && make
 
 # BUILD CORE LIB
 core_lib: $(CORE_LIB)
