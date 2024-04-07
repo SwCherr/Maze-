@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 #ifndef A1_MAZE_CPP_CORE_CAVE_H_
 #define A1_MAZE_CPP_CORE_CAVE_H_
+=======
+#ifndef MAZE_CORE_CAVE_H_
+#define MAZE_CORE_CAVE_H_
+>>>>>>> 1bac169 (merge aleenalt)
 
 #include <iostream>
 
@@ -30,4 +35,8 @@ class Cave : public AbstractGrid {
 };
 }  // namespace s21
 
+<<<<<<< HEAD
 #endif  // A1_MAZE_CPP_CORE_CAVE_H_
+=======
+#endif  // MAZE_CORE_CAVE_H_
+>>>>>>> 1bac169 (merge aleenalt)
