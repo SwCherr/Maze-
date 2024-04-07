@@ -32,6 +32,8 @@ set(PROJECT_SOURCES
     src/core/maze.cc
     src/core/maze.h
 
+    src/view/ui_rectangle.h
+    src/view/ui_rectangle.cc
     src/view/label.h
     src/view/label.cc
     src/view/button.h

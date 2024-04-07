@@ -15,7 +15,7 @@
 namespace s21 {
 MainWindow::MainWindow(Maze* maze)
     : window_(sf::VideoMode(kWindowWidth, kWindowHeight), "Maze"), maze_(maze) {
-  Label* render_window = new Label({10, 10}, {500, 500});
+  UIRectangle* render_window = new Label({10, 10}, {500, 500});
   Button* open_file_btn =
       new Button({600, 200}, {120, 50}, sf::Color{100, 100, 100}, "Open file");
   open_file_btn->setMouseReleasedCommand(

@@ -9,14 +9,13 @@
 
 #include "../constants.h"
 #include "SFML/Window/Event.hpp"
+#include "ui_rectangle.h"
 
 namespace s21 {
 Label::Label(const sf::Vector2f& position, const sf::Vector2f& size,
              const sf::Color& background_color, const std::string& label,
              int font_size)
-    : size_(size),
-      position_(position),
-      background_color_(background_color),
+    : UIRectangle(position, size, background_color),
       label_(label),
       font_size_(font_size) {
   if (!label_font_.loadFromFile(kFontPath)) {
@@ -26,9 +25,7 @@ Label::Label(const sf::Vector2f& position, const sf::Vector2f& size,
 }
 
 void Label::draw(sf::RenderTarget& target) const {
-  sf::RectangleShape button_shape(size_);
-  button_shape.setFillColor(background_color_);
-  button_shape.setPosition(position_);
+  UIRectangle::draw(target);
 
   sf::Text button_text;
   button_text.setString(label_);
@@ -44,7 +41,6 @@ void Label::draw(sf::RenderTarget& target) const {
       sf::Vector2f(position_.x + size_.x / 2.0f, position_.y + size_.y / 2.0f);
   button_text.setPosition(button_center);
 
-  target.draw(button_shape);
   target.draw(button_text);
 }
 
@@ -56,16 +52,5 @@ void Label::handleEvent(const sf::Event& event,
 
 void Label::setLable(const std::string& label) { label_ = label; }
 const std::string& Label::getLabel() const { return label_; }
-
-void Label::setPosition(const sf::Vector2f& position) { position_ = position; }
-const sf::Vector2f& Label::getPosition() const { return position_; }
-
-void Label::setSize(const sf::Vector2f& size) { size_ = size; }
-const sf::Vector2f& Label::getSize() const { return size_; }
-
-void Label::setBackgroundColor(const sf::Color& color) {
-  background_color_ = color;
-}
-const sf::Color& Label::getBackgroundColor() const { return background_color_; }
 
 }  // namespace s21
