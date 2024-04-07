@@ -5,6 +5,7 @@
 #include <memory>
 
 #include "../view/button.h"
+#include "../view/chessboard.h"
 #include "SFML/Graphics/Color.hpp"
 #include "SFML/Window/Event.hpp"
 #include "commands/command.h"
@@ -15,7 +16,7 @@
 namespace s21 {
 MainWindow::MainWindow(Maze* maze)
     : window_(sf::VideoMode(kWindowWidth, kWindowHeight), "Maze"), maze_(maze) {
-  UIRectangle* render_window = new Label({10, 10}, {500, 500});
+  ChessBoard* render_window = new ChessBoard({10, 10}, {50, 50}, 10, 10);
   Button* open_file_btn =
       new Button({600, 200}, {120, 50}, sf::Color{100, 100, 100}, "Open file");
   open_file_btn->setMouseReleasedCommand(

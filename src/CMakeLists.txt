@@ -32,15 +32,17 @@ set(PROJECT_SOURCES
     src/core/maze.cc
     src/core/maze.h
 
+    src/view/ui_component.h
+    src/view/ui_composite.h
+    src/view/ui_composite.cc
     src/view/ui_rectangle.h
     src/view/ui_rectangle.cc
     src/view/label.h
     src/view/label.cc
     src/view/button.h
     src/view/button.cc
-    src/view/ui_component.h
-    src/view/ui_composite.h
-    src/view/ui_composite.cc
+    src/view/chessboard.h
+    src/view/chessboard.cc
 
     src/core/commands/command.h
     src/core/commands/open_file_command.h

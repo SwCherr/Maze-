@@ -3,6 +3,7 @@
 #include <algorithm>
 
 #include "SFML/Graphics/RenderWindow.hpp"
+#include "SFML/System/Vector2.hpp"
 #include "ui_component.h"
 
 namespace s21 {
@@ -28,4 +29,12 @@ void UIComposite::handleEvent(const sf::Event& event,
     child->handleEvent(event, window);
   }
 }
+
+void UIComposite::setPosition(const sf::Vector2f& position) {
+  position_ = position;
+  // Обновите позиции всех дочерних элементов, если необходимо
+}
+
+const sf::Vector2f& UIComposite::getPosition() { return position_; }
+
 }  // namespace s21
