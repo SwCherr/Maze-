@@ -1,6 +1,6 @@
 #include <SFML/Graphics.hpp>
 
-#include "core/main_window.h"
+#include "view/main_window.h"
 
 int main() {
   s21::Maze maze;

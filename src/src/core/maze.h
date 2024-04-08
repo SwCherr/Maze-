@@ -1,5 +1,5 @@
-#ifndef A1_MAZE_CPP_CORE_MAZE_H_
-#define A1_MAZE_CPP_CORE_MAZE_H_
+#ifndef MAZE_CORE_MAZE_H_
+#define MAZE_CORE_MAZE_H_
 
 #include <iostream>
 

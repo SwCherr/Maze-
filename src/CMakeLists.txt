@@ -24,14 +24,13 @@ set(SFML_BUILD_DOC OFF CACHE BOOL "" FORCE)
 set(PROJECT_SOURCES
     src/main.cc
 
-    src/core/main_window.cc
-    src/core/main_window.h
-
     src/core/abstract_grid.h
     src/core/abstract_grid.cc
     src/core/maze.cc
     src/core/maze.h
 
+    src/view/main_window.cc
+    src/view/main_window.h
     src/view/ui_component.h
     src/view/ui_composite.h
     src/view/ui_composite.cc

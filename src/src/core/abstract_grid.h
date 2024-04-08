@@ -1,5 +1,5 @@
-#ifndef A1_MAZE_CPP_CORE_ABSTRUCT_GIRD_H_
-#define A1_MAZE_CPP_CORE_ABSTRUCT_GIRD_H_
+#ifndef MAZE_CORE_ABSTRUCT_GIRD_H_
+#define MAZE_CORE_ABSTRUCT_GIRD_H_
 
 #include <vector>
 #include <fstream>
@@ -13,4 +13,4 @@ public:
   bool readMatrixFromFile(std::ifstream& file, Matrix& matrix, int rows, int cols);
 };
 }
-#endif  // A1_MAZE_CPP_CORE_ABSTRUCT_GIRD_H_
+#endif  // MAZE_CORE_ABSTRUCT_GIRD_H_

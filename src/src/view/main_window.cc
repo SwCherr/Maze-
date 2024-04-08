@@ -4,14 +4,14 @@
 #include <iostream>
 #include <memory>
 
-#include "../view/button.h"
-#include "../view/chessboard.h"
+#include "button.h"
+#include "chessboard.h"
 #include "SFML/Graphics/Color.hpp"
 #include "SFML/Window/Event.hpp"
-#include "commands/command.h"
-#include "commands/open_file_command.h"
-#include "commands/open_maze_command.h"
-#include "maze.h"
+#include "../core/commands/command.h"
+#include "../core/commands/open_file_command.h"
+#include "../core/commands/open_maze_command.h"
+#include "../core/maze.h"
 
 namespace s21 {
 MainWindow::MainWindow(Maze* maze)
