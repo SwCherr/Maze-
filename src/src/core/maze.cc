@@ -6,6 +6,21 @@
 
 using namespace s21;
 
+bool Maze::initFromFile(const std::string& filename) {
+  std::ifstream file(filename);
+  if (!file.is_open()) {
+    std::cerr << "Unable to open filen" << std::endl;
+    return false;
+  }
+  int rows, cols;
+  file >> rows >> cols;
+  vertical_.resize(rows, std::vector<bool>(cols));
+  horizontal_.resize(rows, std::vector<bool>(cols));
+
+  if (!readMatrixFromFile(file, vertical_, rows, cols)) return false;
+  return readMatrixFromFile(file, horizontal_, rows, cols);
+}
+
 void Maze::generateMaze(int rows, int cols) {
   srand(time(NULL)); // Генерирует случ. число, используя текущую дату как параметр
   std::vector<int> numbers(cols);
@@ -91,21 +106,6 @@ bool Maze::checkSecondEmptyBorder(std::vector<int> numbers, int rows, int cols_i
     }
   }
   return result_check;
-}
-
-bool Maze::initFromFile(const std::string& filename) {
-  std::ifstream file(filename);
-  if (!file.is_open()) {
-    std::cerr << "Unable to open filen" << std::endl;
-    return false;
-  }
-  int rows, cols;
-  file >> rows >> cols;
-  vertical_.resize(rows, std::vector<bool>(cols));
-  horizontal_.resize(rows, std::vector<bool>(cols));
-
-  if (!readMatrixFromFile(file, vertical_, rows, cols)) return false;
-  return readMatrixFromFile(file, horizontal_, rows, cols);
 }
 
 int Maze::getRows() const noexcept { return vertical_.size(); }
