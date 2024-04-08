@@ -1,12 +1,71 @@
 #include "maze.h"
-
 #include <time.h>
-
 #include <fstream>
 #include <iostream>
 #include <random>
+#include <stack>
 
 using namespace s21;
+
+int Maze::getRows() const noexcept { return vertical_.size(); }
+
+int Maze::getCols() const noexcept {
+  if (vertical_.size() == 0) {
+    return 0;
+  }
+  return vertical_[0].size();
+}
+
+const Maze::Matrix &Maze::getHorizontal() const { return horizontal_; }
+const Maze::Matrix &Maze::getVirtical() const { return vertical_; }
+
+void Maze::printData() const {
+  if (checkIsValidMaze()) {
+    for (int rows = 0; rows < getRows(); rows++) {
+      if (rows == 0) {
+        for (int i = 0; i < getCols(); i++) std::cout << " _";
+        std::cout << '\n';
+      }
+
+      for (int cols = 0; cols < getCols(); cols++) {
+        if (cols == 0) std::cout << "|";
+        if (horizontal_[rows][cols])
+          std::cout << "_";
+        else
+          std::cout << " ";
+        if (vertical_[rows][cols])
+          std::cout << "|";
+        else
+          std::cout << " ";
+      }
+      std::cout << '\n';
+    }
+    std::cout << '\n';
+  }
+}
+
+void Maze::printDataSolution() const {
+  for (int rows = 0; rows < (int)solution_.size(); rows++) {
+    for (int cols = 0; cols < (int)solution_[0].size(); cols++) {
+      if (solution_[rows][cols]) std::cout << "1";
+      else std::cout << "0";
+    }
+    std::cout << '\n';
+  }
+  std::cout << '\n';
+}
+
+bool Maze::checkIsValidMaze() const {
+  return (vertical_.size() > 0 && vertical_[0].size() > 0) && 
+         (horizontal_.size() > 0 && horizontal_[0].size() > 0);
+}
+
+bool Maze::randomDecision() const {
+  std::random_device rd;   
+  std::mt19937 gen(rd());  
+  std::uniform_int_distribution<> dist(0,9);
+  return dist(gen) % 2 == 1;
+}
 
 bool Maze::initFromFile(const std::string& filename) {
   std::ifstream file(filename);
@@ -24,15 +83,12 @@ bool Maze::initFromFile(const std::string& filename) {
 }
 
 void Maze::generateMaze(int rows, int cols) {
-  srand(time(
-      NULL));  // Генерирует случ. число, используя текущую дату как параметр
   std::vector<int> numbers(cols);
   vertical_.resize(rows, std::vector<bool>(cols));
   horizontal_.resize(rows, std::vector<bool>(cols));
 
   int iter_nums = 0;
   for (; iter_nums < cols; iter_nums++) numbers[iter_nums] = iter_nums;
-
   for (int i = 0; i < rows; i++) {
     generateVertical(numbers, i, cols);
     generateHorizontal(numbers, i, cols);
@@ -40,48 +96,20 @@ void Maze::generateMaze(int rows, int cols) {
   }
 }
 
-void Maze::generateVertical(std::vector<int> &numbers, int curr_rows,
+void Maze::generateVertical(std::vector<int> &numbers, int rows,
                             int cols) {
   for (int j = 0; j < cols; j++) {
-    if (rand() % 2 == 1) {  // 1.1 Стенку справа ставим
-      vertical_[curr_rows][j] = true;
-    } else {               // Стенку справа не ставим
-      if (j < cols - 1) {  // поверяем не крайняя ли ячейка
+    if (randomDecision()) {
+      vertical_[rows][j] = true;
+    } else {             
+      if (j < cols - 1) { 
         if (numbers[j] == numbers[j + 1])
-          vertical_[curr_rows][j] = true;
+          vertical_[rows][j] = true;
         else {
           unionOfSets(numbers, j, cols);
         }
       } else
-        vertical_[curr_rows][j] = true;  // устанавливаем крайнюю правую стену
-    }
-  }
-}
-
-void Maze::generateHorizontal(std::vector<int> &numbers, int curr_rows,
-                              int cols) {
-  for (int j = 0; j < cols; j++) {
-    if (rand() % 2 == 1) {
-      if (checkSecondEmptyBorder(numbers, curr_rows, j)) {
-        horizontal_[curr_rows][j] = true;
-      }
-    }
-  }
-}
-
-void Maze::preprocessingBeforeNextGeneration(std::vector<int> &numbers,
-                                             int &iter_nums, int curr_rows) {
-  if (curr_rows < (getRows() - 1)) {
-    for (int j = 0; j < getCols(); j++) {
-      if (horizontal_[curr_rows][j]) numbers[j] = iter_nums++;
-    }
-  } else {
-    for (int j = 0; j < getCols(); j++) {
-      horizontal_[curr_rows][j] = true;
-      if (j < getCols() - 1) {
-        if (numbers[j] != numbers[j + 1]) vertical_[curr_rows][j] = false;
-        unionOfSets(numbers, j, getCols());
-      }
+        vertical_[rows][j] = true;  
     }
   }
 }
@@ -95,10 +123,19 @@ void Maze::unionOfSets(std::vector<int> &numbers, int index_cur, int cols) {
   }
 }
 
-bool Maze::checkSecondEmptyBorder(std::vector<int> numbers, int rows,
-                                  int cols_in) {
+void Maze::generateHorizontal(std::vector<int> &numbers, int rows,
+                              int cols) {
+  for (int j = 0; j < cols; j++) {
+    if (randomDecision()) {
+      if (checkSecondEmptyBorder(numbers, rows, j)) {
+        horizontal_[rows][j] = true;
+      }
+    }
+  }
+}
+
+bool Maze::checkSecondEmptyBorder(std::vector<int> numbers, int rows, int cols_in) {
   bool result_check = false;
-  // если есть справа текущее множество = есть пустые горизонтали
   if (cols_in < (int)(horizontal_[0].size() - 1) &&
       numbers[cols_in] == numbers[cols_in + 1]) {
     result_check = true;
@@ -113,37 +150,94 @@ bool Maze::checkSecondEmptyBorder(std::vector<int> numbers, int rows,
   return result_check;
 }
 
-int Maze::getRows() const noexcept { return vertical_.size(); }
-
-int Maze::getCols() const noexcept {
-  if (vertical_.size() == 0) {
-    return 0;
+void Maze::preprocessingBeforeNextGeneration(std::vector<int> &numbers,
+                                             int &iter_nums, int rows) {
+  if (rows < (getRows() - 1)) {
+    for (int j = 0; j < getCols(); j++) {
+      if (horizontal_[rows][j]) numbers[j] = iter_nums++;
+    }
+  } else {
+    for (int j = 0; j < getCols(); j++) {
+      horizontal_[rows][j] = true;
+      if (j < getCols() - 1) {
+        if (numbers[j] != numbers[j + 1]) vertical_[rows][j] = false;
+        unionOfSets(numbers, j, getCols());
+      }
+    }
   }
-  return vertical_[0].size();
 }
 
-const Maze::Matrix &Maze::getHorizontal() const { return horizontal_; }
-const Maze::Matrix &Maze::getVirtical() const { return vertical_; }
+bool Maze::solutionMaze(Coordinate A, Coordinate B) {
+  bool is_exit = true;
+  if (!checkIsValidMaze()) is_exit = false;
+  else {
+    int max_rows = getRows();
+    int max_cols = getCols();
 
-void Maze::printData() const {
-  for (int rows = 0; rows < getRows(); rows++) {
-    if (rows == 0) {
-      for (int i = 0; i < getCols(); i++) std::cout << " _";
-      std::cout << '\n';
+    Coordinate cur_cell{A.first, A.second};
+    Matrix visit_matrix(max_rows, std::vector<bool>(max_cols));
+    visit_matrix[cur_cell.first][cur_cell.second] = true;
+
+    // std::stack<Coordinate> stack_cell;
+    while (is_exit && !(cur_cell.first == B.first && cur_cell.second == B.second)) {
+      std::vector<Coordinate> neighbors;
+      if (checkIsUnvisitedNeighbors(visit_matrix, cur_cell, neighbors)) {
+        stack_cell.push((Coordinate) {cur_cell.first, cur_cell.second});
+        choiseRandUnvisitedNeighbor(visit_matrix, cur_cell, neighbors);
+      } else if (!stack_cell.empty()) {
+        cur_cell = stack_cell.top();
+        stack_cell.pop();
+      } else
+        is_exit = false;
     }
 
-    for (int cols = 0; cols < getCols(); cols++) {
-      if (cols == 0) std::cout << "|";
-      if (horizontal_[rows][cols])
-        std::cout << "_";
-      else
-        std::cout << " ";
-      if (vertical_[rows][cols])
-        std::cout << "|";
-      else
-        std::cout << " ";
+    if (is_exit) {
+      stack_cell.push((Coordinate) {cur_cell.first, cur_cell.second});
+      writeSolutionMatrix(stack_cell);
     }
-    std::cout << '\n';
   }
-  std::cout << '\n';
+  return is_exit;
 }
+
+bool Maze::checkIsUnvisitedNeighbors(Matrix visit_matrix, Coordinate cur_cell, 
+                                    std::vector<Coordinate> &neighbors) {
+  int max_rows = getRows();
+  int max_cols = getCols();
+  int row = cur_cell.first;
+  int col = cur_cell.second;
+  if (col < max_cols-1 && !vertical_[row][col] && !visit_matrix[row][col+1]) {
+    neighbors.push_back((Coordinate) {row, col+1});
+  } else if (col > 0 && !vertical_[row][col-1] && !visit_matrix[row][col-1]) {
+    neighbors.push_back((Coordinate) {row, col-1});
+  } else if (row < max_rows-1 && !horizontal_[row][col] && !visit_matrix[row+1][col]) {
+    neighbors.push_back((Coordinate) {row+1, col});
+  } else if (row > 0 && !horizontal_[row-1][col] && !visit_matrix[row-1][col]) {
+    neighbors.push_back((Coordinate) {row-1, col});
+  }
+  return !neighbors.empty();
+}
+
+bool Maze::choiseRandUnvisitedNeighbor(Matrix &visit_matrix, Coordinate &cur_cell, std::vector<Coordinate> neighbors) {
+  bool is_set_next_cell = false;
+  while (!is_set_next_cell) {
+    for (Coordinate cell : neighbors) {
+      if (!is_set_next_cell && randomDecision()) {
+        is_set_next_cell = true;
+        cur_cell.first = cell.first;
+        cur_cell.second = cell.second;
+      }
+    }
+  }
+  visit_matrix[cur_cell.first][cur_cell.second] = true;
+  return is_set_next_cell;
+}
+
+void Maze::writeSolutionMatrix(std::stack<Coordinate> stack_cell) {
+  solution_.resize(getRows(), std::vector<bool>(getCols()));
+  while (!stack_cell.empty()) {
+    Coordinate cur_cell = stack_cell.top();
+    stack_cell.pop();
+    solution_[cur_cell.first][cur_cell.second] = true;
+  }
+}
+
