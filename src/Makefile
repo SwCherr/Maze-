@@ -37,6 +37,14 @@ TEST_EXECUTABLE = $(DIR_BUILD)/core_test
 
 all: core_lib core_test
 
+run:
+	cd $(DIR_BUILD) && ./Maze
+
+install:
+	mkdir -p $(DIR_BUILD)
+	cp -r resources $(DIR_BUILD)/resources
+	cd $(DIR_BUILD) && cmake .. && make
+
 # BUILD CORE LIB
 core_lib: $(CORE_LIB)
 $(CORE_LIB): $(OBJ)

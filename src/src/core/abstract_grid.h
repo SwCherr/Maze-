@@ -2,6 +2,7 @@
 #define A1_MAZE_CPP_CORE_ABSTRUCT_GIRD_H_
 
 #include <vector>
+#include <fstream>
 
 namespace s21 {
   
