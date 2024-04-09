@@ -9,6 +9,7 @@
 
 #include "../constants.h"
 #include "SFML/Window/Event.hpp"
+#include "font_manager.h"
 #include "ui_rectangle.h"
 
 namespace s21 {
@@ -17,12 +18,8 @@ Label::Label(const sf::Vector2f& position, const sf::Vector2f& size,
              int font_size)
     : UIRectangle(position, size, background_color),
       label_(label),
-      font_size_(font_size) {
-  if (!label_font_.loadFromFile(kFontPath)) {
-    std::cerr << "font.ttf not loaded\n";
-    exit(1);
-  };
-}
+      label_font_(FontManager::getFont()),
+      font_size_(font_size) {}
 
 void Label::draw(sf::RenderTarget& target) const {
   UIRectangle::draw(target);

@@ -24,11 +24,8 @@ set(SFML_BUILD_DOC OFF CACHE BOOL "" FORCE)
 set(PROJECT_SOURCES
     src/main.cc
 
-    src/core/abstract_grid.h
-    src/core/abstract_grid.cc
-    src/core/maze.cc
-    src/core/maze.h
-
+    src/view/font_manager.h
+    src/view/font_manager.cc
     src/view/main_window.cc
     src/view/main_window.h
     src/view/ui_component.h
@@ -40,12 +37,18 @@ set(PROJECT_SOURCES
     src/view/label.cc
     src/view/button.h
     src/view/button.cc
-    src/view/chessboard.h
-    src/view/chessboard.cc
+    src/view/maze_view.h
+    src/view/maze_view.cc
+    src/view/line_edit_number.h
+    src/view/line_edit_number.cc
 
     src/core/commands/command.h
-    src/core/commands/open_file_command.h
     src/core/commands/open_maze_command.h
+
+    src/core/abstract_grid.h
+    src/core/abstract_grid.cc
+    src/core/maze.cc
+    src/core/maze.h
 )
 
 # Добавляем SFML в проект

@@ -13,9 +13,10 @@
 namespace s21 {
 class MazeView : public UIRectangle {
  public:
-  MazeView(const sf::Vector2f& position = {10, 10},
+  MazeView(const sf::Vector2f& position = {0, 0},
            const sf::Vector2f& size = {500, 500},
            const sf::Color& background_color = sf::Color::White,
+           const sf::Color& walls_color = sf::Color::Black,
            Maze* maze = nullptr);
 
   void draw(sf::RenderTarget& target) const override;
@@ -23,6 +24,10 @@ class MazeView : public UIRectangle {
                    const sf::RenderWindow& window) override;
 
  private:
+  void drawHorizontalWalls(sf::RenderTarget& target) const;
+  void drawVerticalWalls(sf::RenderTarget& target) const;
+
+  sf::Color walls_color_;
   Maze* maze_;
 };
 }  // namespace s21

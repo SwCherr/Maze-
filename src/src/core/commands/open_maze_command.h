@@ -17,18 +17,13 @@ class OpenMazeCommand : public Command {
   void execute() override {
     if (maze_) {
       const char* filter_patterns[0];
-      const char* file_path =
-          tinyfd_openFileDialog("Open Image",     // Title
-                                "resources",      // Default path
-                                0,                // Number of filter patterns
-                                filter_patterns,  // Filter patterns
-                                "Text files",     // Single filter description
-                                0  // Allow multiple file selection
-          );
+      const char* file_path = tinyfd_openFileDialog(
+          "Open Image", "resources", 0, filter_patterns, "Text files", 0);
 
       if (file_path) {
-        std::cout << "Selected file: " << file_path << std::endl;
+        maze_->clear();
         maze_->initFromFile(file_path);
+        maze_->printData();
       } else {
         std::cout << "No file was selected or dialog was canceled."
                   << std::endl;

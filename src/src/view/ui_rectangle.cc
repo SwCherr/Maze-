@@ -42,4 +42,9 @@ const sf::Color& UIRectangle::getBackgroundColor() const {
   return background_color_;
 }
 
+bool UIRectangle::isMouseInside(sf::Vector2f mouse_pos) {
+  return (mouse_pos.x >= position_.x && mouse_pos.x <= position_.x + size_.x &&
+          mouse_pos.y >= position_.y && mouse_pos.y <= position_.y + size_.y);
+}
+
 }  // namespace s21

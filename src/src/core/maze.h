@@ -8,7 +8,7 @@
 
 namespace s21 {
 
-enum class Position {Vertical, Horizontal};
+enum class Position { Vertical, Horizontal };
 
 class Maze : public AbstractGrid {
  public:
@@ -17,6 +17,7 @@ class Maze : public AbstractGrid {
   Maze() {}
   // ~Maze() {}
 
+  void clear();
   int getRows() const noexcept;
   int getCols() const noexcept;
   const Matrix &getHorizontal() const;
@@ -36,11 +37,11 @@ class Maze : public AbstractGrid {
                                          int &iter_nums, int curr_rows);
 
   bool solutionMaze(Coordinate A, Coordinate B);
-  bool checkIsUnvisitedNeighbors(Matrix visit_matrix, Coordinate cur_cell, std::vector<Coordinate> &neighbors);
-  bool choiseRandUnvisitedNeighbor(Matrix &visit_matrix, Coordinate &cur_cell, std::vector<Coordinate> neighbors);
+  bool checkIsUnvisitedNeighbors(Matrix visit_matrix, Coordinate cur_cell,
+                                 std::vector<Coordinate> &neighbors);
+  bool choiseRandUnvisitedNeighbor(Matrix &visit_matrix, Coordinate &cur_cell,
+                                   std::vector<Coordinate> neighbors);
   void writeSolutionMatrix(std::stack<Coordinate> stack_cell);
-
-
 
   // mazeSolvingTraining();
 

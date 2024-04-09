@@ -28,6 +28,8 @@ class UIRectangle : public UIComponent {
   void setBackgroundColor(const sf::Color& color);
   const sf::Color& getBackgroundColor() const;
 
+  bool isMouseInside(sf::Vector2f mouse_pos);
+
  protected:
   sf::Vector2f position_;
   sf::Vector2f size_;
