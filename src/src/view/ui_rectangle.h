@@ -19,9 +19,6 @@ class UIRectangle : public UIComponent {
   void handleEvent(const sf::Event& event,
                    const sf::RenderWindow& window) override;
 
-  void setPosition(const sf::Vector2f& position);
-  const sf::Vector2f& getPosition() const;
-
   void setSize(const sf::Vector2f& size);
   const sf::Vector2f& getSize() const;
 
@@ -31,7 +28,6 @@ class UIRectangle : public UIComponent {
   bool isMouseInside(sf::Vector2f mouse_pos);
 
  protected:
-  sf::Vector2f position_;
   sf::Vector2f size_;
   sf::Color background_color_;
 };

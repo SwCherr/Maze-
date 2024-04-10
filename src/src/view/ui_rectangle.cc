@@ -6,11 +6,12 @@
 
 #include "../constants.h"
 #include "SFML/Window/Event.hpp"
+#include "ui_component.h"
 
 namespace s21 {
 UIRectangle::UIRectangle(const sf::Vector2f& position, const sf::Vector2f& size,
                          const sf::Color& background_color)
-    : size_(size), position_(position), background_color_(background_color) {}
+    : UIComponent(position), size_(size), background_color_(background_color) {}
 
 void UIRectangle::draw(sf::RenderTarget& target) const {
   sf::RectangleShape button_shape(size_);
@@ -25,11 +26,6 @@ void UIRectangle::handleEvent(const sf::Event& event,
   sf::Vector2i mouse_pos_i = sf::Mouse::getPosition(window);
   sf::Vector2f mouse_pos_f = window.mapPixelToCoords(mouse_pos_i);
 }
-
-void UIRectangle::setPosition(const sf::Vector2f& position) {
-  position_ = position;
-}
-const sf::Vector2f& UIRectangle::getPosition() const { return position_; }
 
 void UIRectangle::setSize(const sf::Vector2f& size) { size_ = size; }
 

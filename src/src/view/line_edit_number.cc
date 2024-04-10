@@ -1,6 +1,10 @@
 #include "line_edit_number.h"
 
 #include "../constants.h"
+#include "SFML/Graphics/Color.hpp"
+#include "SFML/Graphics/RenderTarget.hpp"
+#include "SFML/Graphics/Text.hpp"
+#include "SFML/System/Vector2.hpp"
 #include "font_manager.h"
 #include "ui_rectangle.h"
 
@@ -23,8 +27,17 @@ LineEditNumber::LineEditNumber(const sf::Vector2f& position,
 }
 
 void LineEditNumber::draw(sf::RenderTarget& target) const {
+  drawFocusFrame(target);
   UIRectangle::draw(target);
   target.draw(text_);
+}
+
+void LineEditNumber::drawFocusFrame(sf::RenderTarget& target) const {
+  if (is_focused_) {
+    UIRectangle frame(getPosition() - sf::Vector2f{2, 2},
+                      getSize() + sf::Vector2f{4, 4}, sf::Color::Cyan);
+    frame.draw(target);
+  }
 }
 
 void LineEditNumber::handleEvent(const sf::Event& event,
@@ -41,6 +54,7 @@ void LineEditNumber::handleEvent(const sf::Event& event,
     } else if (event.text.unicode >= '0' && event.text.unicode <= '9') {
       setText(getText() + static_cast<char>(event.text.unicode));
     }
+    removeFirstZero();
     constraintCheck();
   }
 }
@@ -73,6 +87,13 @@ void LineEditNumber::removeLastSimbol() {
   sf::String text = getText();
   if (!text.isEmpty()) {
     setText(text.substring(0, text.getSize() - 1));
+  }
+}
+
+void LineEditNumber::removeFirstZero() {
+  sf::String text = getText();
+  if (text.getSize() > 1 && (*getText().begin() == '0')) {
+    setText(text.substring(1, text.getSize()));
   }
 }
 

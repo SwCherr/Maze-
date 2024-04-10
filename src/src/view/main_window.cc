@@ -19,8 +19,6 @@
 namespace s21 {
 MainWindow::MainWindow(Maze* maze)
     : window_(sf::VideoMode(kWindowWidth, kWindowHeight), "Maze"), maze_(maze) {
-  UIRectangle* render_area =
-      new UIRectangle({5, 5}, {510, 510}, sf::Color{100, 100, 100});
   MazeView* maze_render = new MazeView({10, 10}, {500, 500}, sf::Color::White,
                                        sf::Color::Black, maze_);
   Button* open_file_btn =
@@ -29,21 +27,22 @@ MainWindow::MainWindow(Maze* maze)
       std::make_unique<OpenMazeCommand>(maze_));
   Button* maze_genarate_btn =
       new Button({550, 200}, {120, 50}, sf::Color{100, 100, 100}, "Generate");
-  maze_genarate_btn->setMouseReleasedCommand(
-      std::make_unique<GenerateMazeCommand>(maze_));
 
   LineEditNumber* maze_row_line_edit = new LineEditNumber(
       {680, 200}, {40, 50}, sf::Color::White, sf::Color::Black, 22, 50);
 
-  LineEditNumber* maze_row_line_edit2 =
+  LineEditNumber* maze_col_line_edit =
       new LineEditNumber({730, 200}, {40, 50}, sf::Color::White);
 
-  root_ui_component_.addComponent(render_area);
+  maze_genarate_btn->setMouseReleasedCommand(
+      std::make_unique<GenerateMazeCommand>(maze_, maze_row_line_edit,
+                                            maze_col_line_edit));
+
   root_ui_component_.addComponent(maze_render);
   root_ui_component_.addComponent(open_file_btn);
   root_ui_component_.addComponent(maze_genarate_btn);
   root_ui_component_.addComponent(maze_row_line_edit);
-  root_ui_component_.addComponent(maze_row_line_edit2);
+  root_ui_component_.addComponent(maze_col_line_edit);
 }
 
 void MainWindow::run() {

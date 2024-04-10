@@ -24,6 +24,7 @@ class MazeView : public UIRectangle {
                    const sf::RenderWindow& window) override;
 
  private:
+  void drawFrame(sf::RenderTarget& target) const;
   void drawHorizontalWalls(sf::RenderTarget& target) const;
   void drawVerticalWalls(sf::RenderTarget& target) const;
 
