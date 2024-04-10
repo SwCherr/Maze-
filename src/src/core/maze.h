@@ -25,6 +25,7 @@ class Maze : public AbstractGrid {
   int getCols() const noexcept;
   const Matrix &getHorizontal() const;
   const Matrix &getVirtical() const;
+  const std::vector<Coordinate> &getPathSolution() const;
   void printData() const;
   void printDataSolution() const;
   bool checkIsValidMaze() const;
@@ -35,10 +36,9 @@ class Maze : public AbstractGrid {
 
 
  private:
-  Matrix horizontal_;                  ///< horizontal walls
-  Matrix vertical_;                    ///< vertical walls
-  Matrix traveled_;                    ///< distance traveled
-  std::stack<Coordinate> stack_cell;   ///< solution path
+  Matrix horizontal_;                       ///< horizontal walls
+  Matrix vertical_;                         ///< vertical walls
+  std::vector<Coordinate> path_solution_;   ///< solution path
 
   bool checkIsValidCoordinate(Coordinate A, Coordinate B) const;
   bool randomDecision() const;
@@ -52,7 +52,7 @@ class Maze : public AbstractGrid {
                                  std::vector<Coordinate> &neighbors);
   bool choiseRandUnvisitedNeighbor(Matrix &visit_matrix, Coordinate &cur_cell,
                                    std::vector<Coordinate> neighbors);
-  void writeSolutionMatrix(std::stack<Coordinate> stack_cell);
+  void writeSolutionMatrix(std::stack<Coordinate> stack_cell, int size_stack);
 };
 
 }  // namespace s21

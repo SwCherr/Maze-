@@ -43,7 +43,7 @@ run:
 install:
 	mkdir -p $(DIR_BUILD)
 	cp -r resources $(DIR_BUILD)/resources
-	cd $(DIR_BUILD) && cmake .. && make
+	cd $(DIR_BUILD) && cmake .. && make -j4
 
 # BUILD CORE LIB
 core_lib: $(CORE_LIB)

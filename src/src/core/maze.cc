@@ -12,10 +12,7 @@ using namespace s21;
 void Maze::clear() {
   vertical_.clear();
   horizontal_.clear();
-  traveled_.clear();
-  while (!stack_cell.empty()) {
-    stack_cell.pop();
-  }
+  path_solution_.clear();
 }
 
 int Maze::getRows() const noexcept { return vertical_.size(); }
@@ -29,6 +26,10 @@ int Maze::getCols() const noexcept {
 
 const Maze::Matrix &Maze::getHorizontal() const { return horizontal_; }
 const Maze::Matrix &Maze::getVirtical() const { return vertical_; }
+
+const std::vector<s21::Maze::Coordinate> &Maze::getPathSolution() const { 
+  return path_solution_; 
+}
 
 bool Maze::checkIsValidMaze() const {
   return (vertical_.size() > 0 && vertical_[0].size() > 0) &&
@@ -156,11 +157,14 @@ bool Maze::solutionMaze(Coordinate A, Coordinate B) {
     Matrix visit_matrix(max_rows, std::vector<bool>(max_cols));
     visit_matrix[cur_cell.first][cur_cell.second] = true;
 
+    int size_stack = 0;
+    std::stack<Coordinate> stack_cell;
     while (is_exit && !(cur_cell.first == B.first && cur_cell.second == B.second)) {
       std::vector<Coordinate> neighbors;
       if (checkIsUnvisitedNeighbors(visit_matrix, cur_cell, neighbors)) {
         stack_cell.push((Coordinate){cur_cell.first, cur_cell.second});
         choiseRandUnvisitedNeighbor(visit_matrix, cur_cell, neighbors);
+        size_stack++;
       } else if (!stack_cell.empty()) {
         cur_cell = stack_cell.top();
         stack_cell.pop();
@@ -170,7 +174,7 @@ bool Maze::solutionMaze(Coordinate A, Coordinate B) {
 
     if (is_exit) {
       stack_cell.push((Coordinate){cur_cell.first, cur_cell.second});
-      writeSolutionMatrix(stack_cell);
+      writeSolutionMatrix(stack_cell, size_stack);
     }
   }
   return is_exit;
@@ -215,12 +219,13 @@ bool Maze::choiseRandUnvisitedNeighbor(Matrix &visit_matrix,
   return is_set_next_cell;
 }
 
-void Maze::writeSolutionMatrix(std::stack<Coordinate> stack_cell) {
-  traveled_.resize(getRows(), std::vector<bool>(getCols()));
-  while (!stack_cell.empty()) {
+void Maze::writeSolutionMatrix(std::stack<Coordinate> stack_cell, int size_stack) {
+  path_solution_.resize(size_stack);
+  for (int i = 0; i < size_stack && !stack_cell.empty(); i++) {
     Coordinate cur_cell = stack_cell.top();
+    path_solution_[i].first = cur_cell.first;
+    path_solution_[i].second = cur_cell.second;
     stack_cell.pop();
-    traveled_[cur_cell.first][cur_cell.second] = true;
   }
 }
 
@@ -250,9 +255,9 @@ void Maze::printData() const {
 }
 
 // void Maze::printDataSolution() const {
-//   for (int rows = 0; rows < (int)traveled_.size(); rows++) {
-//     for (int cols = 0; cols < (int)traveled_[0].size(); cols++) {
-//       if (traveled_[rows][cols]) std::cout << "1";
+//   for (int rows = 0; rows < (int)path_solution_.size(); rows++) {
+//     for (int cols = 0; cols < (int)path_solution_[0].size(); cols++) {
+//       if (path_solution_[rows][cols]) std::cout << "1";
 //       else std::cout << "0";
 //     }
 //     std::cout << '\n';
