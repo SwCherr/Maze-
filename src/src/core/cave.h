@@ -7,6 +7,12 @@
 
 namespace s21 {
 
+/**
+ * @brief class Cave
+ * parent class - AbstractGrid
+ * reading a cave from a file and write in data_, generating a cave
+ */
+
 class Cave : public AbstractGrid {
  public:
   enum class GenerationResult { kStable, kMutation, kInvalidParams };
@@ -26,7 +32,7 @@ class Cave : public AbstractGrid {
   // int cycleOfGeneration(int birth_limit, int death_limit);
 
  private:
-  Matrix data_;
+  Matrix data_;     ///< cave
 };
 }  // namespace s21
 

@@ -12,7 +12,7 @@ using namespace s21;
 void Maze::clear() {
   vertical_.clear();
   horizontal_.clear();
-  solution_.clear();
+  traveled_.clear();
   while (!stack_cell.empty()) {
     stack_cell.pop();
   }
@@ -216,11 +216,11 @@ bool Maze::choiseRandUnvisitedNeighbor(Matrix &visit_matrix,
 }
 
 void Maze::writeSolutionMatrix(std::stack<Coordinate> stack_cell) {
-  solution_.resize(getRows(), std::vector<bool>(getCols()));
+  traveled_.resize(getRows(), std::vector<bool>(getCols()));
   while (!stack_cell.empty()) {
     Coordinate cur_cell = stack_cell.top();
     stack_cell.pop();
-    solution_[cur_cell.first][cur_cell.second] = true;
+    traveled_[cur_cell.first][cur_cell.second] = true;
   }
 }
 
@@ -250,9 +250,9 @@ void Maze::printData() const {
 }
 
 // void Maze::printDataSolution() const {
-//   for (int rows = 0; rows < (int)solution_.size(); rows++) {
-//     for (int cols = 0; cols < (int)solution_[0].size(); cols++) {
-//       if (solution_[rows][cols]) std::cout << "1";
+//   for (int rows = 0; rows < (int)traveled_.size(); rows++) {
+//     for (int cols = 0; cols < (int)traveled_[0].size(); cols++) {
+//       if (traveled_[rows][cols]) std::cout << "1";
 //       else std::cout << "0";
 //     }
 //     std::cout << '\n';

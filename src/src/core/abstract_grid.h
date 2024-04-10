@@ -5,7 +5,12 @@
 #include <fstream>
 
 namespace s21 {
-  
+/**
+ * @brief class AbstractGrid
+ * abstract class
+ * reads from file size and matrix 
+ */
+
 class AbstractGrid {
 public:
   using Matrix = std::vector<std::vector<bool>>;
