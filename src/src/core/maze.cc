@@ -30,44 +30,6 @@ int Maze::getCols() const noexcept {
 const Maze::Matrix &Maze::getHorizontal() const { return horizontal_; }
 const Maze::Matrix &Maze::getVirtical() const { return vertical_; }
 
-void Maze::printData() const {
-  if (checkIsValidMaze()) {
-    for (int rows = 0; rows < getRows(); rows++) {
-      if (rows == 0) {
-        for (int i = 0; i < getCols(); i++) std::cout << " _";
-        std::cout << '\n';
-      }
-
-      for (int cols = 0; cols < getCols(); cols++) {
-        if (cols == 0) std::cout << "|";
-        if (horizontal_[rows][cols])
-          std::cout << "_";
-        else
-          std::cout << " ";
-        if (vertical_[rows][cols])
-          std::cout << "|";
-        else
-          std::cout << " ";
-      }
-      std::cout << '\n';
-    }
-    std::cout << '\n';
-  }
-}
-
-void Maze::printDataSolution() const {
-  for (int rows = 0; rows < (int)solution_.size(); rows++) {
-    for (int cols = 0; cols < (int)solution_[0].size(); cols++) {
-      if (solution_[rows][cols])
-        std::cout << "1";
-      else
-        std::cout << "0";
-    }
-    std::cout << '\n';
-  }
-  std::cout << '\n';
-}
-
 bool Maze::checkIsValidMaze() const {
   return (vertical_.size() > 0 && vertical_[0].size() > 0) &&
          (horizontal_.size() > 0 && horizontal_[0].size() > 0);
@@ -179,21 +141,22 @@ void Maze::preprocessingBeforeNextGeneration(std::vector<int> &numbers,
   }
 }
 
+bool Maze::checkIsValidCoordinate(Coordinate A, Coordinate B) const {
+  return (A.first < getRows() && B.first < getRows() && 
+          A.second < getCols() && B.second < getCols());
+}
+
 bool Maze::solutionMaze(Coordinate A, Coordinate B) {
   bool is_exit = true;
-  if (!checkIsValidMaze())
-    is_exit = false;
+  if (!checkIsValidMaze() || !checkIsValidCoordinate(A, B)) is_exit = false;
   else {
     int max_rows = getRows();
     int max_cols = getCols();
-
     Coordinate cur_cell{A.first, A.second};
     Matrix visit_matrix(max_rows, std::vector<bool>(max_cols));
     visit_matrix[cur_cell.first][cur_cell.second] = true;
 
-    // std::stack<Coordinate> stack_cell;
-    while (is_exit &&
-           !(cur_cell.first == B.first && cur_cell.second == B.second)) {
+    while (is_exit && !(cur_cell.first == B.first && cur_cell.second == B.second)) {
       std::vector<Coordinate> neighbors;
       if (checkIsUnvisitedNeighbors(visit_matrix, cur_cell, neighbors)) {
         stack_cell.push((Coordinate){cur_cell.first, cur_cell.second});
@@ -260,3 +223,39 @@ void Maze::writeSolutionMatrix(std::stack<Coordinate> stack_cell) {
     solution_[cur_cell.first][cur_cell.second] = true;
   }
 }
+
+void Maze::printData() const {
+  if (checkIsValidMaze()) {
+    for (int rows = 0; rows < getRows(); rows++) {
+      if (rows == 0) {
+        for (int i = 0; i < getCols(); i++) std::cout << " _";
+        std::cout << '\n';
+      }
+
+      for (int cols = 0; cols < getCols(); cols++) {
+        if (cols == 0) std::cout << "|";
+        if (horizontal_[rows][cols])
+          std::cout << "_";
+        else
+          std::cout << " ";
+        if (vertical_[rows][cols])
+          std::cout << "|";
+        else
+          std::cout << " ";
+      }
+      std::cout << '\n';
+    }
+    std::cout << '\n';
+  }
+}
+
+// void Maze::printDataSolution() const {
+//   for (int rows = 0; rows < (int)solution_.size(); rows++) {
+//     for (int cols = 0; cols < (int)solution_[0].size(); cols++) {
+//       if (solution_[rows][cols]) std::cout << "1";
+//       else std::cout << "0";
+//     }
+//     std::cout << '\n';
+//   }
+//   std::cout << '\n';
+// }

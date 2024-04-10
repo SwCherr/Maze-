@@ -25,6 +25,7 @@ class Maze : public AbstractGrid {
   void printData() const;
   void printDataSolution() const;
   bool checkIsValidMaze() const;
+  bool checkIsValidCoordinate(Coordinate A, Coordinate B) const;
   bool randomDecision() const;
 
   bool initFromFile(const std::string &filename);

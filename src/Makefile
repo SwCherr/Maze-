@@ -75,6 +75,9 @@ gcov_report: tests
 	@rm -rf *.gcda *.gcno *.info *.dSYM
 	$(OPEN_CMD) report/index.html
 
+valgrind: tests
+	@CK_FORK=no valgrind --trace-children=yes --track-fds=yes --track-origins=yes --leak-check=full --show-leak-kinds=all ./$(TEST_EXECUTABLE)
+
 open_report:
 
 clean:
