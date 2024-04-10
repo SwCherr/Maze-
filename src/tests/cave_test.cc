@@ -4,7 +4,7 @@
 
 TEST(Cave, metod_initFromFile) {
   s21::Cave cave;
-  cave.initFromFile("tests/resources/cave01");
+  cave.initFromFile("../src/resources/cave01");
   ASSERT_EQ(cave.getRows(), 4);
   ASSERT_EQ(cave.getCols(), 4);
 }
