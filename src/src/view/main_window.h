@@ -4,8 +4,8 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 
-#include "ui_composite.h"
 #include "../core/maze.h"
+#include "ui_composite.h"
 
 namespace s21 {
 class MainWindow {

@@ -32,8 +32,8 @@ MainWindow::MainWindow(Maze* maze)
   maze_genarate_btn->setMouseReleasedCommand(
       std::make_unique<GenerateMazeCommand>(maze_));
 
-  LineEditNumber* maze_row_line_edit =
-      new LineEditNumber({680, 200}, {40, 50}, sf::Color::White);
+  LineEditNumber* maze_row_line_edit = new LineEditNumber(
+      {680, 200}, {40, 50}, sf::Color::White, sf::Color::Black, 22, 50);
 
   LineEditNumber* maze_row_line_edit2 =
       new LineEditNumber({730, 200}, {40, 50}, sf::Color::White);

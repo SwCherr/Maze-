@@ -13,10 +13,11 @@ namespace s21 {
 
 class LineEditNumber : public UIRectangle {
  public:
-  LineEditNumber(const sf::Vector2f& position, const sf::Vector2f& size,
+  LineEditNumber(const sf::Vector2f& position = {0, 0},
+                 const sf::Vector2f& size = {50, 50},
                  const sf::Color& background_color = sf::Color::White,
                  const sf::Color& text_color = sf::Color::Black,
-                 unsigned int font_size = 24);
+                 unsigned int font_size = 24, long max_value = 99);
 
   virtual ~LineEditNumber() {}
 
@@ -27,13 +28,20 @@ class LineEditNumber : public UIRectangle {
   void setText(const sf::String& text);
   const sf::String& getText() const;
 
+  int getValue() const;
+
+  void setMaxValue(long max_value);
+
  private:
   void updateTextPosition();
+  void removeLastSimbol();
+  void constraintCheck();
 
   sf::Color text_color_;
   sf::Font font_;
   sf::Text text_;
   bool is_focused_;
+  long max_value_;
 };
 
 }  // namespace s21

@@ -32,7 +32,6 @@ void UIComposite::handleEvent(const sf::Event& event,
 
 void UIComposite::setPosition(const sf::Vector2f& position) {
   position_ = position;
-  // Обновите позиции всех дочерних элементов, если необходимо
 }
 
 const sf::Vector2f& UIComposite::getPosition() { return position_; }
