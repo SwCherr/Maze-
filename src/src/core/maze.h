@@ -22,6 +22,7 @@ class Maze : public AbstractGrid {
   int getCols() const noexcept;
   const Matrix &getHorizontal() const;
   const Matrix &getVirtical() const;
+  const std::stack<Coordinate> &getPathSolution() const;
   void printData() const;
   void printDataSolution() const;
   bool checkIsValidMaze() const;
@@ -43,6 +44,7 @@ class Maze : public AbstractGrid {
                                    std::vector<Coordinate> neighbors);
   void writeSolutionMatrix(std::stack<Coordinate> stack_cell);
 
+  std::stack<Maze::Coordinate> getPathSolution();
   // mazeSolvingTraining();
 
  private:

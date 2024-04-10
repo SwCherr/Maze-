@@ -260,3 +260,5 @@ void Maze::writeSolutionMatrix(std::stack<Coordinate> stack_cell) {
     solution_[cur_cell.first][cur_cell.second] = true;
   }
 }
+
+std::stack<Maze::Coordinate> Maze::getPathSolution() { return stack_cell; }

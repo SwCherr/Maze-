@@ -7,12 +7,21 @@
 
 #include "../core/commands/command.h"
 #include "../core/maze.h"
+#include "SFML/Graphics/Rect.hpp"
+#include "SFML/Graphics/RectangleShape.hpp"
 #include "ui_component.h"
 #include "ui_rectangle.h"
 
 namespace s21 {
 class MazeView : public UIRectangle {
  public:
+  enum class PathState {
+    kWaitingStart = 0,
+    kWaitingEnd,
+    kRenderPath,
+    kClearPath,
+  };
+
   MazeView(const sf::Vector2f& position = {0, 0},
            const sf::Vector2f& size = {500, 500},
            const sf::Color& background_color = sf::Color::White,
@@ -24,12 +33,27 @@ class MazeView : public UIRectangle {
                    const sf::RenderWindow& window) override;
 
  private:
+  float horizontalDashLenght() const;
+  float verticalDashLenght() const;
   void drawFrame(sf::RenderTarget& target) const;
-  void drawHorizontalWalls(sf::RenderTarget& target) const;
-  void drawVerticalWalls(sf::RenderTarget& target) const;
+  void drawHorizontalWalls(sf::RenderTarget& target, float width,
+                           float height) const;
+  void drawVerticalWalls(sf::RenderTarget& target, float width,
+                         float height) const;
+  void drawSolutionPath(sf::RenderTarget& target, float width,
+                        float height) const;
+  sf::FloatRect mazeBoundingBox() const;
+  float mazeAspectRatio() const;
+  sf::Vector2i mouseToMazePosition(const sf::Vector2i& mouse_pos_i) const;
+
+  static sf::RectangleShape vertical_dash;
+  static sf::RectangleShape horizontal_dash;
 
   sf::Color walls_color_;
   Maze* maze_;
+  PathState path_state_;
+  Maze::Coordinate path_start_;
+  Maze::Coordinate path_end_;
 };
 }  // namespace s21
 
