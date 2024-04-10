@@ -73,8 +73,3 @@ TEST(Cave, tests_cave_generate_cave_many) {
   ASSERT_EQ(cave.getRows(), 4);
   ASSERT_EQ(cave.getCols(), 4);
 }
-
-// TEST(Cave, tests_cave_stepOfGeneration_01) {
-//   s21::Cave cave(3, 3);
-//   cave.cycleOfGeneration(8, int death_limit)
-// }
