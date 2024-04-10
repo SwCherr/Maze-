@@ -19,41 +19,41 @@ int Maze::getCols() const noexcept {
 const Maze::Matrix &Maze::getHorizontal() const { return horizontal_; }
 const Maze::Matrix &Maze::getVirtical() const { return vertical_; }
 
-void Maze::printData() const {
-  if (checkIsValidMaze()) {
-    for (int rows = 0; rows < getRows(); rows++) {
-      if (rows == 0) {
-        for (int i = 0; i < getCols(); i++) std::cout << " _";
-        std::cout << '\n';
-      }
+// void Maze::printData() const {
+//   if (checkIsValidMaze()) {
+//     for (int rows = 0; rows < getRows(); rows++) {
+//       if (rows == 0) {
+//         for (int i = 0; i < getCols(); i++) std::cout << " _";
+//         std::cout << '\n';
+//       }
 
-      for (int cols = 0; cols < getCols(); cols++) {
-        if (cols == 0) std::cout << "|";
-        if (horizontal_[rows][cols])
-          std::cout << "_";
-        else
-          std::cout << " ";
-        if (vertical_[rows][cols])
-          std::cout << "|";
-        else
-          std::cout << " ";
-      }
-      std::cout << '\n';
-    }
-    std::cout << '\n';
-  }
-}
+//       for (int cols = 0; cols < getCols(); cols++) {
+//         if (cols == 0) std::cout << "|";
+//         if (horizontal_[rows][cols])
+//           std::cout << "_";
+//         else
+//           std::cout << " ";
+//         if (vertical_[rows][cols])
+//           std::cout << "|";
+//         else
+//           std::cout << " ";
+//       }
+//       std::cout << '\n';
+//     }
+//     std::cout << '\n';
+//   }
+// }
 
-void Maze::printDataSolution() const {
-  for (int rows = 0; rows < (int)solution_.size(); rows++) {
-    for (int cols = 0; cols < (int)solution_[0].size(); cols++) {
-      if (solution_[rows][cols]) std::cout << "1";
-      else std::cout << "0";
-    }
-    std::cout << '\n';
-  }
-  std::cout << '\n';
-}
+// void Maze::printDataSolution() const {
+//   for (int rows = 0; rows < (int)solution_.size(); rows++) {
+//     for (int cols = 0; cols < (int)solution_[0].size(); cols++) {
+//       if (solution_[rows][cols]) std::cout << "1";
+//       else std::cout << "0";
+//     }
+//     std::cout << '\n';
+//   }
+//   std::cout << '\n';
+// }
 
 bool Maze::checkIsValidMaze() const {
   return (vertical_.size() > 0 && vertical_[0].size() > 0) && 

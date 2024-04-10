@@ -1,52 +1,101 @@
 #include "../src/core/maze.h"
 #include <gtest/gtest.h>
 
-TEST(Maze, tests_maze_simple) {
+TEST(Maze, tests_maze_simple_init_from_file) {
   s21::Maze maze;
-  maze.initFromFile("../src/resources/maze_1");
-  // maze.printData();
+  bool return_res = maze.initFromFile("../src/resources/maze_1");
+  ASSERT_EQ(return_res, true);
   ASSERT_EQ(maze.getRows(), 10);
   ASSERT_EQ(maze.getCols(), 10);
 }
 
+TEST(Maze, tests_maze_simple_init_from_file_incorrect_file) {
+  s21::Maze maze;
+  bool return_res = maze.initFromFile("../src/resources/no_such_file");
+  ASSERT_EQ(return_res, false);
+  ASSERT_EQ(maze.getRows(), 0);
+  ASSERT_EQ(maze.getCols(), 0);
+}
+
+TEST(Maze, tests_maze_get_vertical) {
+  s21::Maze maze;
+  bool return_res = maze.initFromFile("../src/resources/maze_4");
+  const s21::Maze::Matrix maze_vertical = maze.getVirtical();
+  const s21::Maze::Matrix maze_horizontal = maze.getHorizontal();
+  for (int i = 0; i < 3; i++) {
+    for (int j = 0; j < 3; j++) {
+      ASSERT_EQ(maze_vertical[i][j], 1);
+      ASSERT_EQ(maze_horizontal[i][j], 0);
+    }
+  }
+  ASSERT_EQ(return_res, true);
+  ASSERT_EQ(maze.getRows(), 3);
+  ASSERT_EQ(maze.getCols(), 3);
+}
+
+TEST(Maze, tests_maze_solution_maze_no_exit) {
+  s21::Maze maze;
+  int size = 3;
+  s21::Maze::Coordinate A{size-1, 0};
+  s21::Maze::Coordinate B{0, size-1};
+  bool return_res = maze.initFromFile("../src/resources/maze_4");
+  bool is_exit = maze.solutionMaze(A, B);
+  ASSERT_EQ(return_res, true);
+  ASSERT_EQ(is_exit, false);
+  ASSERT_EQ(maze.getRows(), 3);
+  ASSERT_EQ(maze.getCols(), 3);
+}
+
+// TEST(Maze, tests_maze_solution_maze_out_of_range) {
+//   s21::Maze maze;
+//   int size = 5;
+//   s21::Maze::Coordinate A{size-1, 0};
+//   s21::Maze::Coordinate B{0, size-1};
+//   bool return_res = maze.initFromFile("../src/resources/maze_4");
+//   bool is_exit = maze.solutionMaze(A, B);
+//   ASSERT_EQ(return_res, true);
+//   ASSERT_EQ(is_exit, false);
+//   ASSERT_EQ(maze.getRows(), 3);
+//   ASSERT_EQ(maze.getCols(), 3);
+// }
 
 TEST(Maze, tests_maze_solution_maze_01) {
-  int size = 5;
   s21::Maze maze;
+  int size = 5;
   s21::Maze::Coordinate A{size-1, 0};
   s21::Maze::Coordinate B{0, size-1};
   maze.generateMaze(size, size);
-  maze.printData();
+  // maze.printData();
   bool solution_is = maze.solutionMaze(A, B);
-  maze.printDataSolution();
+  // maze.printDataSolution();
   ASSERT_EQ(solution_is, true);
   ASSERT_EQ(maze.getRows(), size);
   ASSERT_EQ(maze.getCols(), size);
 }
 
 TEST(Maze, tests_maze_solution_maze_02) {
-  int size = 5;
   s21::Maze maze;
+  int size = 5;
   s21::Maze::Coordinate A{0, size-1};
   s21::Maze::Coordinate B{size-1, 0};
   maze.generateMaze(size, size);
-  maze.printData();
+  // maze.printData();
   bool solution_is = maze.solutionMaze(A, B);
-  maze.printDataSolution();
+  // maze.printDataSolution();
   ASSERT_EQ(solution_is, true);
   ASSERT_EQ(maze.getRows(), size);
   ASSERT_EQ(maze.getCols(), size);
 }
 
 TEST(Maze, tests_maze_solution_maze_03) {
-  int size = 5;
   s21::Maze maze;
+  int size = 5;
   s21::Maze::Coordinate A{0, 0};
   s21::Maze::Coordinate B{size-1, size-1};
   maze.generateMaze(size, size);
-  maze.printData();
+  // maze.printData();
   bool solution_is = maze.solutionMaze(A, B);
-  maze.printDataSolution();
+  // maze.printDataSolution();
   ASSERT_EQ(solution_is, true);
   ASSERT_EQ(maze.getRows(), size);
   ASSERT_EQ(maze.getCols(), size);
@@ -94,7 +143,7 @@ TEST(Maze, tests_maze_generate_3_3) {
 TEST(Maze, tests_maze_generate_4_4) {
   s21::Maze maze;
   maze.generateMaze(4, 4);
-  maze.printData();
+  // maze.printData();
   ASSERT_EQ(maze.getRows(), 4);
   ASSERT_EQ(maze.getCols(), 4);
 }
