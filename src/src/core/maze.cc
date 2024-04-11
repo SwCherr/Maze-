@@ -224,8 +224,8 @@ void Maze::writeSolutionMatrix(std::stack<Coordinate> stack_cell) {
   while (!stack_cell.empty()) {
     Coordinate cur_cell = stack_cell.top();
     path_solution_.resize(++size);
-    path_solution_[size-1].row = cur_cell.row;
-    path_solution_[size-1].col = cur_cell.col;
+    path_solution_[size - 1].row = cur_cell.row;
+    path_solution_[size - 1].col = cur_cell.col;
     stack_cell.pop();
   }
 }
