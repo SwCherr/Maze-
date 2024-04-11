@@ -27,17 +27,11 @@ LineEditNumber::LineEditNumber(const sf::Vector2f& position,
 }
 
 void LineEditNumber::draw(sf::RenderTarget& target) const {
-  drawFocusFrame(target);
+  if (is_focused_) {
+    drawFraming(target);
+  }
   UIRectangle::draw(target);
   target.draw(text_);
-}
-
-void LineEditNumber::drawFocusFrame(sf::RenderTarget& target) const {
-  if (is_focused_) {
-    UIRectangle frame(getPosition() - sf::Vector2f{2, 2},
-                      getSize() + sf::Vector2f{4, 4}, sf::Color::Cyan);
-    frame.draw(target);
-  }
 }
 
 void LineEditNumber::handleEvent(const sf::Event& event,

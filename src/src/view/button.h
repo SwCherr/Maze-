@@ -23,6 +23,7 @@ class Button : public Label {
 
   void handleEvent(const sf::Event& event,
                    const sf::RenderWindow& window) override;
+  void draw(sf::RenderTarget& target) const override;
   void setMousePressCommand(std::unique_ptr<Command> command);
   void setMouseReleasedCommand(std::unique_ptr<Command> command);
 

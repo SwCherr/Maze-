@@ -28,7 +28,7 @@ MazeView::MazeView(const sf::Vector2f& position, const sf::Vector2f& size,
       path_end_() {}
 
 void MazeView::draw(sf::RenderTarget& target) const {
-  drawFrame(target);
+  drawFraming(target);
   UIRectangle::draw(target);
   if (maze_->checkIsValidMaze()) {
     drawVerticalWalls(target, horizontalDashLenght(), verticalDashLenght());
@@ -44,13 +44,6 @@ void MazeView::draw(sf::RenderTarget& target) const {
         break;
     }
   }
-}
-
-void MazeView::drawFrame(sf::RenderTarget& target) const {
-  UIRectangle maze_render_frame(getPosition() - sf::Vector2f{5, 5},
-                                getSize() + sf::Vector2f{10, 10},
-                                sf::Color::Cyan);
-  maze_render_frame.draw(target);
 }
 
 void MazeView::handleEvent(const sf::Event& event,
@@ -139,7 +132,7 @@ void MazeView::drawPoint(sf::RenderTarget& target, int row, int col) const {
                           horizontalDashLenght() / 2,
                       static_cast<float>(row) * verticalDashLenght() +
                           verticalDashLenght() / 2});
-  circle.setFillColor(sf::Color::Red);
+  circle.setFillColor(kBeigeColor);
   target.draw(circle);
 }
 
@@ -157,7 +150,7 @@ void MazeView::drawSolutionPath(sf::RenderTarget& target) const {
     float y =
         maze_->getPathSolution()[i].first * height + height / 2 + position_.y;
     line[i].position = sf::Vector2f(x, y);
-    line[i].color = sf::Color::Red;
+    line[i].color = kBeigeColor;
   }
   target.draw(line);
 }

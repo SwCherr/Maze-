@@ -33,7 +33,6 @@ class LineEditNumber : public UIRectangle {
   void setMaxValue(long max_value);
 
  private:
-  void drawFocusFrame(sf::RenderTarget& target) const;
   void updateTextPosition();
   void removeFirstZero();
   void removeLastSimbol();

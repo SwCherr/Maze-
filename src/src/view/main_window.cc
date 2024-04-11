@@ -18,21 +18,23 @@
 
 namespace s21 {
 MainWindow::MainWindow(Maze* maze)
-    : window_(sf::VideoMode(kWindowWidth, kWindowHeight), "Maze"), maze_(maze) {
-  MazeView* maze_render = new MazeView({10, 10}, {500, 500}, sf::Color::White,
-                                       sf::Color::Black, maze_);
+    : need_redraw_(true),
+      window_(sf::VideoMode(kWindowWidth, kWindowHeight), "Maze"),
+      maze_(maze) {
+  MazeView* maze_render =
+      new MazeView({10, 10}, {500, 500}, kLightBrownColor, kDarkColor, maze_);
   Button* open_file_btn =
-      new Button({600, 100}, {120, 50}, sf::Color{100, 100, 100}, "Open file");
+      new Button({550, 190}, {220, 50}, kLightBrownColor, "Open file", 18);
   open_file_btn->setMouseReleasedCommand(
       std::make_unique<OpenMazeCommand>(maze_));
   Button* maze_genarate_btn =
-      new Button({550, 200}, {120, 50}, sf::Color{100, 100, 100}, "Generate");
+      new Button({550, 260}, {120, 50}, kLightBrownColor, "Generate", 18);
 
   LineEditNumber* maze_row_line_edit = new LineEditNumber(
-      {680, 200}, {40, 50}, sf::Color::White, sf::Color::Black, 22, 50);
+      {680, 260}, {40, 50}, kLightBrownColor, kDarkColor, 22, 50);
 
-  LineEditNumber* maze_col_line_edit =
-      new LineEditNumber({730, 200}, {40, 50}, sf::Color::White);
+  LineEditNumber* maze_col_line_edit = new LineEditNumber(
+      {730, 260}, {40, 50}, kLightBrownColor, kDarkColor, 22, 50);
 
   maze_genarate_btn->setMouseReleasedCommand(
       std::make_unique<GenerateMazeCommand>(maze_, maze_row_line_edit,
@@ -49,8 +51,6 @@ MainWindow::MainWindow(Maze* maze)
 }
 
 void MainWindow::run() {
-  bool need_redraw = true;
-
   while (window_.isOpen()) {
     sf::Event event;
     bool event_processed = false;
@@ -66,22 +66,21 @@ void MainWindow::run() {
       root_ui_component_.handleEvent(event, window_);
     }
 
-    if (event_processed) {
-      window_.clear();
-      root_ui_component_.draw(window_);
-      window_.display();
-      need_redraw = false;
-    } else if (need_redraw) {
-      window_.clear();
-      root_ui_component_.draw(window_);
-      window_.display();
-      need_redraw = false;
+    if (event_processed || need_redraw_) {
+      drawFrame(event);
     }
 
     if (window_.hasFocus() && !window_.isOpen()) {
-      need_redraw = true;
+      need_redraw_ = true;
     }
   }
+}
+
+void MainWindow::drawFrame(const sf::Event& event) {
+  window_.clear(kDarkColor);
+  root_ui_component_.draw(window_);
+  window_.display();
+  need_redraw_ = false;
 }
 
 }  // namespace s21

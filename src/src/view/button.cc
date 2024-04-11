@@ -27,7 +27,6 @@ void Button::handleEvent(const sf::Event& event,
     if (isMouseOver(mouse_pos_f)) {
       lastPressed = this;
       is_pressed_ = true;
-      setBackgroundColor(sf::Color::Blue);
       if (mouse_press_command_) {
         mouse_press_command_->execute();
       }
@@ -35,10 +34,16 @@ void Button::handleEvent(const sf::Event& event,
   } else if (event.type == sf::Event::MouseButtonReleased) {
     if (is_pressed_ && lastPressed == this) {
       is_pressed_ = false;
-      setBackgroundColor(sf::Color::White);
       mouse_released_command_->execute();
     }
   }
+}
+
+void Button::draw(sf::RenderTarget& target) const {
+  if (is_pressed_) {
+    drawFraming(target);
+  }
+  Label::draw(target);
 }
 
 bool Button::isMouseOver(const sf::Vector2f& mouse_pos) const {

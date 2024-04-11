@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/System/Vector2.hpp>
 
+#include "../constants.h"
 #include "SFML/Window/Event.hpp"
 #include "ui_component.h"
 
@@ -25,11 +26,17 @@ class UIRectangle : public UIComponent {
   void setBackgroundColor(const sf::Color& color);
   const sf::Color& getBackgroundColor() const;
 
+  void setFramingColor(const sf::Color& color);
+  const sf::Color& getFramingColor() const;
+
   bool isMouseInside(sf::Vector2f mouse_pos);
 
  protected:
+  virtual void drawFraming(sf::RenderTarget& target) const;
+
   sf::Vector2f size_;
   sf::Color background_color_;
+  sf::Color framing_color_;
 };
 }  // namespace s21
 

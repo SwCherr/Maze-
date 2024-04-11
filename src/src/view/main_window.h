@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "../core/maze.h"
+#include "SFML/Window/Event.hpp"
 #include "ui_composite.h"
 
 namespace s21 {
@@ -14,6 +15,9 @@ class MainWindow {
   void run();
 
  private:
+  void drawFrame(const sf::Event& event);
+
+  bool need_redraw_;
   sf::RenderWindow window_;
   Maze* maze_;
   UIComposite root_ui_component_;

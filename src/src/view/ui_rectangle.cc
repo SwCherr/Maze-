@@ -5,13 +5,17 @@
 #include <SFML/System/Vector2.hpp>
 
 #include "../constants.h"
+#include "SFML/Graphics/RenderTarget.hpp"
 #include "SFML/Window/Event.hpp"
 #include "ui_component.h"
 
 namespace s21 {
 UIRectangle::UIRectangle(const sf::Vector2f& position, const sf::Vector2f& size,
                          const sf::Color& background_color)
-    : UIComponent(position), size_(size), background_color_(background_color) {}
+    : UIComponent(position),
+      size_(size),
+      background_color_(background_color),
+      framing_color_(kBeigeColor) {}
 
 void UIRectangle::draw(sf::RenderTarget& target) const {
   sf::RectangleShape button_shape(size_);
@@ -38,9 +42,20 @@ const sf::Color& UIRectangle::getBackgroundColor() const {
   return background_color_;
 }
 
+void UIRectangle::setFramingColor(const sf::Color& color) {
+  framing_color_ = color;
+}
+const sf::Color& UIRectangle::getFramingColor() const { return framing_color_; }
+
 bool UIRectangle::isMouseInside(sf::Vector2f mouse_pos) {
   return (mouse_pos.x >= position_.x && mouse_pos.x <= position_.x + size_.x &&
           mouse_pos.y >= position_.y && mouse_pos.y <= position_.y + size_.y);
+}
+
+void UIRectangle::drawFraming(sf::RenderTarget& target) const {
+  UIRectangle frame(getPosition() - sf::Vector2f{2, 2},
+                    getSize() + sf::Vector2f{4, 4}, framing_color_);
+  frame.draw(target);
 }
 
 }  // namespace s21

@@ -36,7 +36,6 @@ class MazeView : public UIRectangle {
   const float verticalDashLenght() const;
 
  private:
-  void drawFrame(sf::RenderTarget& target) const;
   void drawHorizontalWalls(sf::RenderTarget& target, float width,
                            float height) const;
   void drawVerticalWalls(sf::RenderTarget& target, float width,
