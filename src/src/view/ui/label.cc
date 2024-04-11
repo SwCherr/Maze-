@@ -1,16 +1,15 @@
 #include "label.h"
 
 #include <SFML/Graphics.hpp>
-#include <SFML/Graphics/Color.hpp>
 #include <SFML/System/Vector2.hpp>
+#include <SFML/Window/Event.hpp>
 #include <SFML/Window/Mouse.hpp>
 #include <iostream>
 #include <string>
 
-#include "../constants.h"
-#include "SFML/Window/Event.hpp"
-#include "font_manager.h"
-#include "ui_rectangle.h"
+#include "../../constants.h"
+#include "../font_manager.h"
+#include "rectangle.h"
 
 namespace s21 {
 Label::Label(const sf::Vector2f& position, const sf::Vector2f& size,

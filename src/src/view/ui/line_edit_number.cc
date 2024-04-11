@@ -1,12 +1,11 @@
 #include "line_edit_number.h"
 
-#include "../constants.h"
-#include "SFML/Graphics/Color.hpp"
-#include "SFML/Graphics/RenderTarget.hpp"
-#include "SFML/Graphics/Text.hpp"
-#include "SFML/System/Vector2.hpp"
-#include "font_manager.h"
-#include "ui_rectangle.h"
+#include <SFML/Graphics.hpp>
+#include <SFML/System/Vector2.hpp>
+
+#include "../../constants.h"
+#include "../font_manager.h"
+#include "rectangle.h"
 
 namespace s21 {
 

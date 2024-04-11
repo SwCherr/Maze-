@@ -1,7 +1,7 @@
 #ifndef MAZE_CORE_COMMANDS_GENERATE_MAZE_COMMAND_H_
 #define MAZE_CORE_COMMANDS_GENERATE_MAZE_COMMAND_H_
 
-#include "../../view/line_edit_number.h"
+#include "../../view/ui/line_edit_number.h"
 #include "../maze.h"
 #include "command.h"
 

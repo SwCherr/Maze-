@@ -1,5 +1,7 @@
 #include "main_window.h"
 
+#include <SFML/Graphics/Color.hpp>
+#include <SFML/Window/Event.hpp>
 #include <SFML/Window/VideoMode.hpp>
 #include <iostream>
 #include <memory>
@@ -8,13 +10,11 @@
 #include "../core/commands/generate_maze_command.h"
 #include "../core/commands/open_maze_command.h"
 #include "../core/maze.h"
-#include "SFML/Graphics/Color.hpp"
-#include "SFML/Window/Event.hpp"
-#include "button.h"
-#include "line_edit_number.h"
 #include "maze_view.h"
-#include "ui_composite.h"
-#include "ui_rectangle.h"
+#include "ui/button.h"
+#include "ui/composite.h"
+#include "ui/line_edit_number.h"
+#include "ui/rectangle.h"
 
 namespace s21 {
 MainWindow::MainWindow(Maze* maze)

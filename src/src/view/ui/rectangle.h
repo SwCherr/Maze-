@@ -1,11 +1,11 @@
-#ifndef MAZE_BUTTON_UIRECTANGLE_H_
-#define MAZE_BUTTON_UIRECTANGLE_H_
+#ifndef MAZE_VIEW_UI_BUTTON_UIRECTANGLE_H_
+#define MAZE_VIEW_UI_BUTTON_UIRECTANGLE_H_
 
 #include <SFML/Graphics.hpp>
 #include <SFML/System/Vector2.hpp>
+#include <SFML/Window/Event.hpp>
 
-#include "../constants.h"
-#include "SFML/Window/Event.hpp"
+#include "../../constants.h"
 #include "ui_component.h"
 
 namespace s21 {
@@ -40,4 +40,4 @@ class UIRectangle : public UIComponent {
 };
 }  // namespace s21
 
-#endif  // MAZE_BUTTON_UIRECTANGLE_H_
+#endif  // MAZE_VIEW_UI_BUTTON_UIRECTANGLE_H_

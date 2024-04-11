@@ -1,11 +1,10 @@
-#ifndef MAZE_BUTTON_COMPONENT_H_
-#define MAZE_BUTTON_COMPONENT_H_
+#ifndef MAZE_VIEW_UI_COMPONENT_H_
+#define MAZE_VIEW_UI_COMPONENT_H_
 
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/System/Vector2.hpp>
 #include <SFML/Window/Event.hpp>
-
-#include "SFML/System/Vector2.hpp"
 
 namespace s21 {
 class UIComponent {
@@ -23,4 +22,4 @@ class UIComponent {
   sf::Vector2f position_;
 };
 }  // namespace s21
-#endif  // MAZE_BUTTON_COMPONENT_H_
+#endif  // MAZE_VIEW_UI_COMPONENT_H_

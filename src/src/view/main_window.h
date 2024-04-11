@@ -1,12 +1,12 @@
-#ifndef MAZE_CORE_MAINWINDOW_H_
-#define MAZE_CORE_MAINWINDOW_H_
+#ifndef MAZE_VIEW_MAINWINDOW_H_
+#define MAZE_VIEW_MAINWINDOW_H_
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Window/Event.hpp>
 #include <vector>
 
 #include "../core/maze.h"
-#include "SFML/Window/Event.hpp"
-#include "ui_composite.h"
+#include "ui/composite.h"
 
 namespace s21 {
 class MainWindow {
@@ -24,4 +24,4 @@ class MainWindow {
 };
 }  // namespace s21
 
-#endif  // MAZE_CORE_MAINWINDOW_H_
+#endif  // MAZE_VIEW_MAINWINDOW_H_

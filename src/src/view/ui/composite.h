@@ -1,11 +1,13 @@
-#ifndef MAZE_BUTTON_COMPOSITE_H_
-#define MAZE_BUTTON_COMPOSITE_H_
+#ifndef MAZE_VIEW_UI_COMPOSITE_H_
+#define MAZE_VIEW_UI_COMPOSITE_H_
 
-#include "SFML/Graphics/RenderTarget.hpp"
-#include "SFML/Graphics/RenderWindow.hpp"
-#include "SFML/System/Vector2.hpp"
-#include "SFML/Window/Event.hpp"
+#include <SFML/Graphics/RenderTarget.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/System/Vector2.hpp>
+#include <SFML/Window/Event.hpp>
+
 #include "ui_component.h"
+
 namespace s21 {
 class UIComposite : public UIComponent {
  public:
@@ -31,4 +33,4 @@ class UIComposite : public UIComponent {
 };
 }  // namespace s21
 
-#endif  // MAZE_BUTTON_COMPOSITE_H_
+#endif  // MAZE_VIEW_UI_COMPOSITE_H_

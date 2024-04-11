@@ -7,11 +7,8 @@
 
 #include "../core/commands/command.h"
 #include "../core/maze.h"
-#include "SFML/Graphics/Rect.hpp"
-#include "SFML/Graphics/RectangleShape.hpp"
-#include "SFML/Graphics/RenderTarget.hpp"
-#include "ui_component.h"
-#include "ui_rectangle.h"
+#include "ui/rectangle.h"
+#include "ui/ui_component.h"
 
 namespace s21 {
 class MazeView : public UIRectangle {

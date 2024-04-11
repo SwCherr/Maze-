@@ -1,14 +1,14 @@
-#ifndef MAZE_BUTTON_LABEL_H_
-#define MAZE_BUTTON_LABEL_H_
+#ifndef MAZE_VIEW_UI_LABEL_H_
+#define MAZE_VIEW_UI_LABEL_H_
 
 #include <SFML/Graphics.hpp>
 #include <SFML/System/Vector2.hpp>
+#include <SFML/Window/Event.hpp>
 #include <string>
 
-#include "../core/commands/command.h"
-#include "SFML/Window/Event.hpp"
+#include "../../core/commands/command.h"
+#include "rectangle.h"
 #include "ui_component.h"
-#include "ui_rectangle.h"
 
 namespace s21 {
 class Label : public UIRectangle {
@@ -33,4 +33,4 @@ class Label : public UIRectangle {
 };
 }  // namespace s21
 
-#endif  // MAZE_BUTTON_LABEL_H_
+#endif  // MAZE_VIEW_UI_LABEL_H_

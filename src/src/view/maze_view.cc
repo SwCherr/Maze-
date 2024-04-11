@@ -1,20 +1,14 @@
 #include "maze_view.h"
 
+#include <SFML/Graphics.hpp>
+#include <SFML/System/Vector2.hpp>
+#include <SFML/Window/Event.hpp>
+#include <SFML/Window/Mouse.hpp>
 #include <cstddef>
 #include <utility>
 
-#include "SFML/Graphics/CircleShape.hpp"
-#include "SFML/Graphics/Color.hpp"
-#include "SFML/Graphics/PrimitiveType.hpp"
-#include "SFML/Graphics/Rect.hpp"
-#include "SFML/Graphics/RectangleShape.hpp"
-#include "SFML/Graphics/RenderTarget.hpp"
-#include "SFML/Graphics/VertexArray.hpp"
-#include "SFML/System/Vector2.hpp"
-#include "SFML/Window/Event.hpp"
-#include "SFML/Window/Mouse.hpp"
-#include "label.h"
-#include "ui_rectangle.h"
+#include "ui/label.h"
+#include "ui/rectangle.h"
 
 namespace s21 {
 MazeView::MazeView(const sf::Vector2f& position, const sf::Vector2f& size,

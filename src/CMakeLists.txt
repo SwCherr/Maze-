@@ -28,19 +28,20 @@ set(PROJECT_SOURCES
     src/view/font_manager.cc
     src/view/main_window.cc
     src/view/main_window.h
-    src/view/ui_component.h
-    src/view/ui_composite.h
-    src/view/ui_composite.cc
-    src/view/ui_rectangle.h
-    src/view/ui_rectangle.cc
-    src/view/label.h
-    src/view/label.cc
-    src/view/button.h
-    src/view/button.cc
     src/view/maze_view.h
     src/view/maze_view.cc
-    src/view/line_edit_number.h
-    src/view/line_edit_number.cc
+
+    src/view/ui/ui_component.h
+    src/view/ui/composite.h
+    src/view/ui/composite.cc
+    src/view/ui/rectangle.h
+    src/view/ui/rectangle.cc
+    src/view/ui/label.h
+    src/view/ui/label.cc
+    src/view/ui/button.h
+    src/view/ui/button.cc
+    src/view/ui/line_edit_number.h
+    src/view/ui/line_edit_number.cc
 
     src/core/commands/command.h
     src/core/commands/open_maze_command.h

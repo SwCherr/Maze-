@@ -1,14 +1,13 @@
-#ifndef MAZE_BUTTON_BUTTON_H_
-#define MAZE_BUTTON_BUTTON_H_
+#ifndef MAZE_VIEW_UI_BUTTON_H_
+#define MAZE_VIEW_UI_BUTTON_H_
 
 #include <SFML/Graphics.hpp>
 #include <SFML/System/Vector2.hpp>
+#include <SFML/Window/Event.hpp>
 #include <string>
 
-#include "../constants.h"
-#include "../core/commands/command.h"
-#include "SFML/Graphics/RenderTarget.hpp"
-#include "SFML/Window/Event.hpp"
+#include "../../constants.h"
+#include "../../core/commands/command.h"
 #include "label.h"
 #include "ui_component.h"
 
@@ -39,4 +38,4 @@ class Button : public Label {
 };
 }  // namespace s21
 
-#endif  // MAZE_BUTTON_BUTTON_H_
+#endif  // MAZE_VIEW_UI_BUTTON_H_

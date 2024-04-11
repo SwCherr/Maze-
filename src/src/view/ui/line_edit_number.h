@@ -1,13 +1,13 @@
-#ifndef MAZE_VIEW_LINE_EDIT_NUMBER_H_
-#define MAZE_VIEW_LINE_EDIT_NUMBER_H_
+#ifndef MAZE_VIEW_UI_LINE_EDIT_NUMBER_H_
+#define MAZE_VIEW_UI_LINE_EDIT_NUMBER_H_
 
 #include <SFML/Graphics.hpp>
+#include <SFML/System/Vector2.hpp>
+#include <SFML/Window/Event.hpp>
+#include <SFML/Window/Mouse.hpp>
 #include <string>
 
-#include "SFML/System/Vector2.hpp"
-#include "SFML/Window/Event.hpp"
-#include "SFML/Window/Mouse.hpp"
-#include "ui_rectangle.h"
+#include "rectangle.h"
 
 namespace s21 {
 
@@ -47,4 +47,4 @@ class LineEditNumber : public UIRectangle {
 
 }  // namespace s21
 
-#endif  // MAZE_VIEW_LINE_EDIT_NUMBER_H_
+#endif  // MAZE_VIEW_UI_LINE_EDIT_NUMBER_H_

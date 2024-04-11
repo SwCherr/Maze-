@@ -76,7 +76,7 @@ gcov_report: tests
 	$(OPEN_CMD) report/index.html
 
 dist:
-	git archive --format=tar --prefix=$(NAME_PROJECT)/ HEAD | gzip > $(NAME_PROJECT).tgz
+	git archive --format=tar --prefix=$(NAME_PROJECT)/ HEAD | gzip > $(PROJECT_NAME).tgz
 
 dvi:
 	doxygen Doxyfile
