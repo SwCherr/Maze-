@@ -44,6 +44,7 @@ bool Maze::randomDecision() const {
 }
 
 bool Maze::initFromFile(const std::string &filename) {
+  int is_read = true;
   std::ifstream file(filename);
   if (!file.is_open()) {
     std::cerr << "Unable to open filen" << std::endl;
@@ -54,8 +55,10 @@ bool Maze::initFromFile(const std::string &filename) {
   vertical_.resize(rows, std::vector<bool>(cols));
   horizontal_.resize(rows, std::vector<bool>(cols));
 
-  if (!readMatrixFromFile(file, vertical_, rows, cols)) return false;
-  return readMatrixFromFile(file, horizontal_, rows, cols);
+  if (!readMatrixFromFile(file, vertical_, rows, cols)) is_read = false;
+  if (!readMatrixFromFile(file, horizontal_, rows, cols)) is_read = false;
+  if (!is_read) clear();
+  return is_read;
 }
 
 void Maze::generateMaze(int rows, int cols) {
