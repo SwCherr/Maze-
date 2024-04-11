@@ -16,8 +16,9 @@ To generate a maze, set the size in the range from 1 to 50 for the number of row
 
 Next, click on the "Generate" button.<br>
 
-![Open file](./readme_resources/generate_maze_25_50.png){ width=200xp }
-![Open file](./readme_resources/generate_maze_50_50.png){ width=200xp }
+![Open file](./readme_resources/generate_maze_25_50.png){ width=800px }
+
+![Open file](./readme_resources/generate_maze_50_50.png){ width=800px }
 
 
 To launch the maze solving function, click on any point in the displayed maze. The first press sets the starting point.<br>
