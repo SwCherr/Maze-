@@ -146,23 +146,23 @@ void Maze::preprocessingBeforeNextGeneration(std::vector<int> &numbers,
 }
 
 bool Maze::checkIsValidCoordinate(Coordinate A, Coordinate B) const {
-  return (A.first < getRows() && B.first < getRows() && 
-          A.second < getCols() && B.second < getCols());
+  return (A.row < getRows() && B.row < getRows() && 
+          A.col < getCols() && B.col < getCols());
 }
 
 bool Maze::solutionMaze(Coordinate A, Coordinate B) {
   bool is_exit = true;
   if (!checkIsValidMaze() || !checkIsValidCoordinate(A, B)) is_exit = false;
   else {
-    Coordinate cur_cell{A.first, A.second};
+    Coordinate cur_cell{A.row, A.col};
     Matrix visit_matrix(getRows(), std::vector<bool>(getCols()));
-    visit_matrix[cur_cell.first][cur_cell.second] = true;
+    visit_matrix[cur_cell.row][cur_cell.col] = true;
 
     std::stack<Coordinate> stack_cell;
-    while (is_exit && !(cur_cell.first == B.first && cur_cell.second == B.second)) {
+    while (is_exit && !(cur_cell.row == B.row && cur_cell.col == B.col)) {
       std::vector<Coordinate> neighbors;
       if (checkIsUnvisitedNeighbors(visit_matrix, cur_cell, neighbors)) {
-        stack_cell.push((Coordinate){cur_cell.first, cur_cell.second});
+        stack_cell.push((Coordinate){cur_cell.row, cur_cell.col});
         choiseRandUnvisitedNeighbor(visit_matrix, cur_cell, neighbors);
       } else if (!stack_cell.empty()) {
         cur_cell = stack_cell.top();
@@ -172,7 +172,7 @@ bool Maze::solutionMaze(Coordinate A, Coordinate B) {
     }
 
     if (is_exit) {
-      stack_cell.push((Coordinate){cur_cell.first, cur_cell.second});
+      stack_cell.push((Coordinate){cur_cell.row, cur_cell.col});
       writeSolutionMatrix(stack_cell);
     }
   }
@@ -183,8 +183,8 @@ bool Maze::checkIsUnvisitedNeighbors(Matrix visit_matrix, Coordinate cur_cell,
                                      std::vector<Coordinate> &neighbors) {
   int max_rows = getRows();
   int max_cols = getCols();
-  int row = cur_cell.first;
-  int col = cur_cell.second;
+  int row = cur_cell.row;
+  int col = cur_cell.col;
   if (col < max_cols - 1 && !vertical_[row][col] &&
       !visit_matrix[row][col + 1]) {
     neighbors.push_back((Coordinate){row, col + 1});
@@ -209,12 +209,12 @@ bool Maze::choiseRandUnvisitedNeighbor(Matrix &visit_matrix,
     for (Coordinate cell : neighbors) {
       if (!is_set_next_cell && randomDecision()) {
         is_set_next_cell = true;
-        cur_cell.first = cell.first;
-        cur_cell.second = cell.second;
+        cur_cell.row = cell.row;
+        cur_cell.col = cell.col;
       }
     }
   }
-  visit_matrix[cur_cell.first][cur_cell.second] = true;
+  visit_matrix[cur_cell.row][cur_cell.col] = true;
   return is_set_next_cell;
 }
 
@@ -225,10 +225,10 @@ void Maze::writeSolutionMatrix(std::stack<Coordinate> stack_cell) {
     path_solution_.resize(++size);
 
     solution_.resize(getRows(), std::vector<bool>(getCols())); // delete
-    solution_[cur_cell.first][cur_cell.second] = true; // delete
+    solution_[cur_cell.row][cur_cell.col] = true; // delete
 
-    path_solution_[size-1].first = cur_cell.first;
-    path_solution_[size-1].second = cur_cell.second;
+    path_solution_[size-1].row = cur_cell.row;
+    path_solution_[size-1].col = cur_cell.col;
     stack_cell.pop();
   }
 }

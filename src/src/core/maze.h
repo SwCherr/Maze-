@@ -18,7 +18,10 @@ enum class Position { Vertical, Horizontal };
 
 class Maze : public AbstractGrid {
  public:
-  using Coordinate = std::pair<int, int>;
+  struct Coordinate {
+    int row;
+    int col;
+  };
 
   void clear();
   int getRows() const noexcept;
