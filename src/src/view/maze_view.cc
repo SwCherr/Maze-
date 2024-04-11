@@ -36,9 +36,9 @@ void MazeView::draw(sf::RenderTarget& target) const {
     switch (path_state_) {
       case PathState::kRenderPath:
         drawSolutionPath(target);
-        drawPoint(target, path_end_.first, path_end_.second);
+        drawPoint(target, path_end_.row, path_end_.col);
       case PathState::kWaitingEnd:
-        drawPoint(target, path_start_.first, path_start_.second);
+        drawPoint(target, path_start_.row, path_start_.col);
         break;
       default:
         break;
@@ -58,20 +58,20 @@ void MazeView::handleEvent(const sf::Event& event,
     if (mazeBoundingBox().contains(mouse_pos_f) && maze_->checkIsValidMaze()) {
       switch (path_state_) {
         case PathState::kWaitingStart:
-          path_start_.first = mouseToMazePosition(mouse_pos_i).x;
-          path_start_.second = mouseToMazePosition(mouse_pos_i).y;
-          std::cout << path_start_.first << ' ' << path_start_.second << '\n';
+          path_start_.row = mouseToMazePosition(mouse_pos_i).x;
+          path_start_.col = mouseToMazePosition(mouse_pos_i).y;
+          std::cout << path_start_.row << ' ' << path_start_.col << '\n';
           path_state_ = PathState::kWaitingEnd;
           break;
         case PathState::kWaitingEnd:
-          path_end_.first = mouseToMazePosition(mouse_pos_i).x;
-          path_end_.second = mouseToMazePosition(mouse_pos_i).y;
-          std::cout << path_end_.first << ' ' << path_end_.second << '\n';
+          path_end_.row = mouseToMazePosition(mouse_pos_i).x;
+          path_end_.col = mouseToMazePosition(mouse_pos_i).y;
+          std::cout << path_end_.row << ' ' << path_end_.col << '\n';
           path_state_ = PathState::kRenderPath;
           maze_->solutionMaze(path_start_, path_end_);
           for (int i = 0; i < maze_->getPathSolution().size(); ++i) {
-            std::cout << maze_->getPathSolution()[i].first << '.'
-                      << maze_->getPathSolution()[i].second << '\n';
+            std::cout << maze_->getPathSolution()[i].row << '.'
+                      << maze_->getPathSolution()[i].col << '\n';
           }
           break;
         case PathState::kRenderPath:
@@ -145,10 +145,9 @@ void MazeView::drawSolutionPath(sf::RenderTarget& target) const {
   sf::VertexArray line(sf::LinesStrip, maze_->getPathSolution().size());
 
   for (size_t i = 0; i < maze_->getPathSolution().size(); ++i) {
-    float x =
-        maze_->getPathSolution()[i].second * width + width / 2 + position_.x;
+    float x = maze_->getPathSolution()[i].col * width + width / 2 + position_.x;
     float y =
-        maze_->getPathSolution()[i].first * height + height / 2 + position_.y;
+        maze_->getPathSolution()[i].row * height + height / 2 + position_.y;
     line[i].position = sf::Vector2f(x, y);
     line[i].color = kBeigeColor;
   }
