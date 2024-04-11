@@ -1,8 +1,9 @@
+#include "composite.h"
+
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/System/Vector2.hpp>
 #include <algorithm>
 
-#include "composite.h"
 #include "ui_component.h"
 
 namespace s21 {
