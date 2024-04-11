@@ -36,9 +36,9 @@ void MazeView::draw(sf::RenderTarget& target) const {
     switch (path_state_) {
       case PathState::kRenderPath:
         drawSolutionPath(target);
-        drawPoint(target, path_end_.second, path_end_.first);
+        drawPoint(target, path_end_.first, path_end_.second);
       case PathState::kWaitingEnd:
-        drawPoint(target, path_start_.second, path_start_.first);
+        drawPoint(target, path_start_.first, path_start_.second);
         break;
       default:
         break;
@@ -159,8 +159,6 @@ void MazeView::drawSolutionPath(sf::RenderTarget& target) const {
     line[i].position = sf::Vector2f(x, y);
     line[i].color = sf::Color::Red;
   }
-  std::cout << maze_->getPathSolution().size() << "\n";
-
   target.draw(line);
 }
 
@@ -200,8 +198,8 @@ sf::FloatRect MazeView::mazeBoundingBox() const {
 sf::Vector2i MazeView::mouseToMazePosition(
     const sf::Vector2i& mouse_pos_i) const {
   return sf::Vector2i{
-      static_cast<int>((mouse_pos_i.x - position_.x) / horizontalDashLenght()),
-      static_cast<int>((mouse_pos_i.y - position_.y) / verticalDashLenght())};
+      static_cast<int>((mouse_pos_i.y - position_.y) / verticalDashLenght()),
+      static_cast<int>((mouse_pos_i.x - position_.x) / horizontalDashLenght())};
 }
 
 }  // namespace s21
