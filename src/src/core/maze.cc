@@ -168,6 +168,7 @@ bool Maze::solutionMaze(Coordinate A, Coordinate B) {
       } else if (!stack_cell.empty()) {
         cur_cell = stack_cell.top();
         stack_cell.pop();
+        size_stack--;
       } else
         is_exit = false;
     }
