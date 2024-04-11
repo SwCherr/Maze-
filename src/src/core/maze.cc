@@ -224,10 +224,6 @@ void Maze::writeSolutionMatrix(std::stack<Coordinate> stack_cell) {
   while (!stack_cell.empty()) {
     Coordinate cur_cell = stack_cell.top();
     path_solution_.resize(++size);
-
-    solution_.resize(getRows(), std::vector<bool>(getCols()));  // delete
-    solution_[cur_cell.row][cur_cell.col] = true;               // delete
-
     path_solution_[size - 1].row = cur_cell.row;
     path_solution_[size - 1].col = cur_cell.col;
     stack_cell.pop();
@@ -257,19 +253,4 @@ void Maze::printData() const {
     }
     std::cout << '\n';
   }
-}
-
-void Maze::printDataSolution() const {
-  for (int rows = 0; rows < (int)solution_.size(); rows++) {
-    for (int cols = 0; cols < (int)solution_[0].size(); cols++) {
-      if (cols == 0) std::cout << rows << " - ";
-      if (cols == 5) std::cout << " ";
-      if (solution_[rows][cols])
-        std::cout << "1";
-      else
-        std::cout << "0";
-    }
-    std::cout << '\n';
-  }
-  std::cout << '\n';
 }

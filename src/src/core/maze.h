@@ -30,7 +30,6 @@ class Maze : public AbstractGrid {
   const Matrix &getVirtical() const;
   const std::vector<Coordinate> &getPathSolution() const;
   void printData() const;
-  void printDataSolution() const;
   bool checkIsValidMaze() const;
 
   bool initFromFile(const std::string &filename);
@@ -40,7 +39,6 @@ class Maze : public AbstractGrid {
  private:
   Matrix horizontal_;                      ///< horizontal walls
   Matrix vertical_;                        ///< vertical walls
-  Matrix solution_;                        // delete
   std::vector<Coordinate> path_solution_;  ///< solution path
 
   bool checkIsValidCoordinate(Coordinate A, Coordinate B) const;
