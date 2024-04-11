@@ -29,17 +29,14 @@ void Button::handleEvent(const sf::Event& event,
       is_pressed_ = true;
       setBackgroundColor(sf::Color::Blue);
       if (mouse_press_command_) {
-        std::cout << "mouse_press_command.execute()\n";
         mouse_press_command_->execute();
       }
-      std::cout << "pressed\n";
     }
   } else if (event.type == sf::Event::MouseButtonReleased) {
     if (is_pressed_ && lastPressed == this) {
       is_pressed_ = false;
       setBackgroundColor(sf::Color::White);
       mouse_released_command_->execute();
-      std::cout << "released\n";
     }
   }
 }
