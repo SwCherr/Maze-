@@ -1,6 +1,15 @@
 #include "../src/core/maze.h"
 #include <gtest/gtest.h>
 
+TEST(Maze, tests_maze_simple_init_from_file_cave) {
+  s21::Maze maze;
+  bool return_res = maze.initFromFile("../src/resources/cave03");
+  ASSERT_EQ(return_res, false);
+  ASSERT_EQ(maze.checkIsValidMaze(), false);
+  ASSERT_EQ(maze.getRows(), 0);
+  ASSERT_EQ(maze.getCols(), 0);
+}
+
 TEST(Maze, tests_maze_simple_init_from_file) {
   s21::Maze maze;
   bool return_res = maze.initFromFile("../src/resources/maze_1");
