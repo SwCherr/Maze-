@@ -1,4 +1,5 @@
 #include "../src/core/maze.h"
+
 #include <gtest/gtest.h>
 
 TEST(Maze, tests_maze_simple_init_from_file_cave) {
@@ -31,8 +32,8 @@ TEST(Maze, tests_maze_clear) {
   s21::Maze maze;
   int size = 10;
   bool return_res = maze.initFromFile("../src/resources/maze_1");
-  s21::Maze::Coordinate A{size-1, 0};
-  s21::Maze::Coordinate B{0, size-1};
+  s21::Maze::Coordinate A{size - 1, 0};
+  s21::Maze::Coordinate B{0, size - 1};
   bool is_exit = maze.solutionMaze(A, B);
   maze.printData();
   ASSERT_EQ(return_res, true);
@@ -166,7 +167,8 @@ TEST(Maze, tests_maze_get_vertical_horizontal_solution) {
   bool return_res = maze.initFromFile("../src/resources/maze_4");
   const s21::Maze::Matrix maze_vertical = maze.getVirtical();
   const s21::Maze::Matrix maze_horizontal = maze.getHorizontal();
-  const std::vector<s21::Maze::Coordinate> path_solution = maze.getPathSolution();
+  const std::vector<s21::Maze::Coordinate> path_solution =
+      maze.getPathSolution();
   for (int i = 0; i < 3; i++) {
     for (int j = 0; j < 3; j++) {
       ASSERT_EQ(maze_vertical[i][j], 1);
@@ -181,8 +183,8 @@ TEST(Maze, tests_maze_get_vertical_horizontal_solution) {
 TEST(Maze, tests_maze_solution_maze_no_exit) {
   s21::Maze maze;
   int size = 3;
-  s21::Maze::Coordinate A{size-1, 0};
-  s21::Maze::Coordinate B{0, size-1};
+  s21::Maze::Coordinate A{size - 1, 0};
+  s21::Maze::Coordinate B{0, size - 1};
   bool return_res = maze.initFromFile("../src/resources/maze_4");
   bool is_exit = maze.solutionMaze(A, B);
   ASSERT_EQ(return_res, true);
@@ -194,8 +196,8 @@ TEST(Maze, tests_maze_solution_maze_no_exit) {
 TEST(Maze, tests_maze_solution_maze_out_of_range) {
   s21::Maze maze;
   int size = 4;
-  s21::Maze::Coordinate A{size-1, 0};
-  s21::Maze::Coordinate B{0, size-1};
+  s21::Maze::Coordinate A{size - 1, 0};
+  s21::Maze::Coordinate B{0, size - 1};
   bool return_res = maze.initFromFile("../src/resources/maze_4");
   bool is_exit = maze.solutionMaze(A, B);
   ASSERT_EQ(return_res, true);
@@ -207,8 +209,8 @@ TEST(Maze, tests_maze_solution_maze_out_of_range) {
 TEST(Maze, tests_maze_solution_maze_01) {
   s21::Maze maze;
   int size = 5;
-  s21::Maze::Coordinate A{size-1, 0};
-  s21::Maze::Coordinate B{0, size-1};
+  s21::Maze::Coordinate A{size - 1, 0};
+  s21::Maze::Coordinate B{0, size - 1};
   maze.generateMaze(size, size);
   bool solution_is = maze.solutionMaze(A, B);
   ASSERT_EQ(solution_is, true);
@@ -219,8 +221,8 @@ TEST(Maze, tests_maze_solution_maze_01) {
 TEST(Maze, tests_maze_solution_maze_02) {
   s21::Maze maze;
   int size = 5;
-  s21::Maze::Coordinate A{0, size-1};
-  s21::Maze::Coordinate B{size-1, 0};
+  s21::Maze::Coordinate A{0, size - 1};
+  s21::Maze::Coordinate B{size - 1, 0};
   maze.generateMaze(size, size);
   bool solution_is = maze.solutionMaze(A, B);
   ASSERT_EQ(solution_is, true);
@@ -232,7 +234,7 @@ TEST(Maze, tests_maze_solution_maze_03) {
   s21::Maze maze;
   int size = 5;
   s21::Maze::Coordinate A{0, 0};
-  s21::Maze::Coordinate B{size-1, size-1};
+  s21::Maze::Coordinate B{size - 1, size - 1};
   maze.generateMaze(size, size);
   bool solution_is = maze.solutionMaze(A, B);
   ASSERT_EQ(solution_is, true);

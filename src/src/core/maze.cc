@@ -27,8 +27,8 @@ int Maze::getCols() const noexcept {
 const Maze::Matrix &Maze::getHorizontal() const { return horizontal_; }
 const Maze::Matrix &Maze::getVirtical() const { return vertical_; }
 
-const std::vector<s21::Maze::Coordinate> &Maze::getPathSolution() const { 
-  return path_solution_; 
+const std::vector<s21::Maze::Coordinate> &Maze::getPathSolution() const {
+  return path_solution_;
 }
 
 bool Maze::checkIsValidMaze() const {
@@ -146,13 +146,14 @@ void Maze::preprocessingBeforeNextGeneration(std::vector<int> &numbers,
 }
 
 bool Maze::checkIsValidCoordinate(Coordinate A, Coordinate B) const {
-  return (A.row < getRows() && B.row < getRows() && 
-          A.col < getCols() && B.col < getCols());
+  return (A.row < getRows() && B.row < getRows() && A.col < getCols() &&
+          B.col < getCols());
 }
 
 bool Maze::solutionMaze(Coordinate A, Coordinate B) {
   bool is_exit = true;
-  if (!checkIsValidMaze() || !checkIsValidCoordinate(A, B)) is_exit = false;
+  if (!checkIsValidMaze() || !checkIsValidCoordinate(A, B))
+    is_exit = false;
   else {
     Coordinate cur_cell{A.row, A.col};
     Matrix visit_matrix(getRows(), std::vector<bool>(getCols()));

@@ -21,7 +21,6 @@ void UIRectangle::draw(sf::RenderTarget& target) const {
   sf::RectangleShape button_shape(size_);
   button_shape.setFillColor(background_color_);
   button_shape.setPosition(position_);
-
   target.draw(button_shape);
 }
 
