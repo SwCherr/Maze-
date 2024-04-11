@@ -46,9 +46,6 @@ class MazeView : public UIRectangle {
   float mazeAspectRatio() const;
   sf::Vector2i mouseToMazePosition(const sf::Vector2i& mouse_pos_i) const;
 
-  static sf::RectangleShape vertical_dash;
-  static sf::RectangleShape horizontal_dash;
-
   sf::Color walls_color_;
   Maze* maze_;
   PathState path_state_;

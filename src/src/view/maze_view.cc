@@ -30,8 +30,6 @@ void MazeView::draw(sf::RenderTarget& target) const {
   drawFrame(target);
   UIRectangle::draw(target);
   if (maze_->checkIsValidMaze()) {
-    horizontal_dash.setSize({2, horizontalDashLenght()});
-    vertical_dash.setSize({verticalDashLenght(), 2});
     drawVerticalWalls(target, horizontalDashLenght(), verticalDashLenght());
     drawHorizontalWalls(target, horizontalDashLenght(), verticalDashLenght());
     if (path_state_ == PathState::kRenderPath) {
@@ -80,6 +78,8 @@ void MazeView::handleEvent(const sf::Event& event,
 
 void MazeView::drawHorizontalWalls(sf::RenderTarget& target, float width,
                                    float height) const {
+  static sf::RectangleShape horizontal_dash;
+  horizontal_dash.setSize({horizontalDashLenght(), 2});
   horizontal_dash.setFillColor(walls_color_);
   for (int row = 0; row < maze_->getRows(); ++row) {
     for (int col = 0; col < maze_->getCols(); ++col) {
@@ -99,6 +99,8 @@ void MazeView::drawHorizontalWalls(sf::RenderTarget& target, float width,
 
 void MazeView::drawVerticalWalls(sf::RenderTarget& target, float width,
                                  float height) const {
+  static sf::RectangleShape vertical_dash;
+  vertical_dash.setSize({2, verticalDashLenght()});
   vertical_dash.setFillColor(walls_color_);
   for (int row = 0; row < maze_->getRows(); ++row) {
     for (int col = 0; col < maze_->getCols(); ++col) {
@@ -118,18 +120,10 @@ void MazeView::drawVerticalWalls(sf::RenderTarget& target, float width,
 
 void MazeView::drawSolutionPath(sf::RenderTarget& target, float width,
                                 float height) const {
-  // if (maze_->getPathSolution().empty()) {
-  //   return;
-  // }
-  // sf::VertexArray line(sf::LinesStrip);
-
-  // int count = 0;
-
-  // while (!maze_->getPathSolution().empty()) {
-  //   s21::Maze::Coordinate vertex = maze_->getPathSolution().top();
-  //   maze_->getPathSolution().pop();
-  //   ++count;
-  // }
+  if (maze_->getPathSolution().empty()) {
+    return;
+  }
+  sf::VertexArray line(sf::LinesStrip);
 }
 
 float MazeView::horizontalDashLenght() const {

@@ -43,7 +43,7 @@ run:
 install:
 	mkdir -p $(DIR_BUILD)
 	cp -r resources $(DIR_BUILD)/resources
-	cd $(DIR_BUILD) && cmake .. && make
+	cd $(DIR_BUILD) && cmake .. && make -j4
 
 # BUILD CORE LIB
 core_lib: $(CORE_LIB)
@@ -74,6 +74,9 @@ gcov_report: tests
 	@genhtml -o report test.info $(LCOV_FLAG)
 	@rm -rf *.gcda *.gcno *.info *.dSYM
 	$(OPEN_CMD) report/index.html
+
+valgrind: tests
+	@CK_FORK=no valgrind --trace-children=yes --track-fds=yes --track-origins=yes --leak-check=full --show-leak-kinds=all ./$(TEST_EXECUTABLE)
 
 open_report:
 
