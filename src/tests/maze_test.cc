@@ -35,7 +35,6 @@ TEST(Maze, tests_maze_clear) {
   s21::Maze::Coordinate B{0, size-1};
   bool is_exit = maze.solutionMaze(A, B);
   maze.printData();
-  maze.printDataSolution();
   ASSERT_EQ(return_res, true);
   ASSERT_EQ(is_exit, true);
   ASSERT_EQ(maze.getRows(), 10);
@@ -52,7 +51,6 @@ TEST(Maze, tests_maze_solution_01) {
   s21::Maze::Coordinate B{0, 9};
   bool is_exit = maze.solutionMaze(A, B);
   maze.printData();
-  maze.printDataSolution();
   ASSERT_EQ(return_res, true);
   ASSERT_EQ(is_exit, true);
   ASSERT_EQ(maze.getRows(), 10);
@@ -66,7 +64,6 @@ TEST(Maze, tests_maze_solution_02) {
   s21::Maze::Coordinate B{9, 9};
   bool is_exit = maze.solutionMaze(A, B);
   maze.printData();
-  maze.printDataSolution();
   ASSERT_EQ(return_res, true);
   ASSERT_EQ(is_exit, true);
   ASSERT_EQ(maze.getRows(), 10);
@@ -80,7 +77,6 @@ TEST(Maze, tests_maze_solution_03) {
   s21::Maze::Coordinate B{9, 1};
   bool is_exit = maze.solutionMaze(A, B);
   maze.printData();
-  maze.printDataSolution();
   ASSERT_EQ(return_res, true);
   ASSERT_EQ(is_exit, true);
   ASSERT_EQ(maze.getRows(), 10);
@@ -94,7 +90,6 @@ TEST(Maze, tests_maze_solution_04) {
   s21::Maze::Coordinate B{9, 8};
   bool is_exit = maze.solutionMaze(A, B);
   maze.printData();
-  maze.printDataSolution();
   ASSERT_EQ(return_res, true);
   ASSERT_EQ(is_exit, true);
   ASSERT_EQ(maze.getRows(), 10);
@@ -108,7 +103,6 @@ TEST(Maze, tests_maze_solution_05) {
   s21::Maze::Coordinate B{5, 5};
   bool is_exit = maze.solutionMaze(A, B);
   maze.printData();
-  maze.printDataSolution();
   ASSERT_EQ(return_res, true);
   ASSERT_EQ(is_exit, true);
   ASSERT_EQ(maze.getRows(), 10);
@@ -122,7 +116,6 @@ TEST(Maze, tests_maze_solution_06) {
   s21::Maze::Coordinate B{2, 9};
   bool is_exit = maze.solutionMaze(A, B);
   maze.printData();
-  maze.printDataSolution();
   ASSERT_EQ(return_res, true);
   ASSERT_EQ(is_exit, true);
   ASSERT_EQ(maze.getRows(), 10);
@@ -136,7 +129,6 @@ TEST(Maze, tests_maze_solution_07) {
   s21::Maze::Coordinate B{5, 6};
   bool is_exit = maze.solutionMaze(A, B);
   maze.printData();
-  maze.printDataSolution();
   ASSERT_EQ(return_res, true);
   ASSERT_EQ(is_exit, true);
   ASSERT_EQ(maze.getRows(), 10);
@@ -150,7 +142,6 @@ TEST(Maze, tests_maze_solution_08) {
   s21::Maze::Coordinate B{5, 5};
   bool is_exit = maze.solutionMaze(A, B);
   maze.printData();
-  maze.printDataSolution();
   ASSERT_EQ(return_res, true);
   ASSERT_EQ(is_exit, true);
   ASSERT_EQ(maze.getRows(), 10);
@@ -164,7 +155,6 @@ TEST(Maze, tests_maze_solution_09) {
   s21::Maze::Coordinate B{9, 0};
   bool is_exit = maze.solutionMaze(A, B);
   maze.printData();
-  maze.printDataSolution();
   ASSERT_EQ(return_res, true);
   ASSERT_EQ(is_exit, true);
   ASSERT_EQ(maze.getRows(), 10);
