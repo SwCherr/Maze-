@@ -157,6 +157,20 @@ TEST(Maze, tests_maze_solution_08) {
   ASSERT_EQ(maze.getCols(), 10);
 }
 
+TEST(Maze, tests_maze_solution_09) {
+  s21::Maze maze;
+  bool return_res = maze.initFromFile("../src/resources/maze_1");
+  s21::Maze::Coordinate A{0, 0};
+  s21::Maze::Coordinate B{9, 0};
+  bool is_exit = maze.solutionMaze(A, B);
+  maze.printData();
+  maze.printDataSolution();
+  ASSERT_EQ(return_res, true);
+  ASSERT_EQ(is_exit, true);
+  ASSERT_EQ(maze.getRows(), 10);
+  ASSERT_EQ(maze.getCols(), 10);
+}
+
 TEST(Maze, tests_maze_get_vertical_horizontal_solution) {
   s21::Maze maze;
   bool return_res = maze.initFromFile("../src/resources/maze_4");
