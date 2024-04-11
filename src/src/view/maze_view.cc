@@ -3,6 +3,7 @@
 #include <cstddef>
 #include <utility>
 
+#include "SFML/Graphics/CircleShape.hpp"
 #include "SFML/Graphics/Color.hpp"
 #include "SFML/Graphics/PrimitiveType.hpp"
 #include "SFML/Graphics/Rect.hpp"
@@ -32,8 +33,15 @@ void MazeView::draw(sf::RenderTarget& target) const {
   if (maze_->checkIsValidMaze()) {
     drawVerticalWalls(target, horizontalDashLenght(), verticalDashLenght());
     drawHorizontalWalls(target, horizontalDashLenght(), verticalDashLenght());
-    if (path_state_ == PathState::kRenderPath) {
-      drawSolutionPath(target, horizontalDashLenght(), verticalDashLenght());
+    switch (path_state_) {
+      case PathState::kRenderPath:
+        drawSolutionPath(target);
+        drawPoint(target, path_end_.second, path_end_.first);
+      case PathState::kWaitingEnd:
+        drawPoint(target, path_start_.second, path_start_.first);
+        break;
+      default:
+        break;
     }
   }
 }
@@ -54,7 +62,7 @@ void MazeView::handleEvent(const sf::Event& event,
   if (event.type == sf::Event::MouseButtonPressed) {
     sf::Vector2i mouse_pos_i = sf::Mouse::getPosition(window);
     sf::Vector2f mouse_pos_f = window.mapPixelToCoords(mouse_pos_i);
-    if (mazeBoundingBox().contains(mouse_pos_f)) {
+    if (mazeBoundingBox().contains(mouse_pos_f) && maze_->checkIsValidMaze()) {
       switch (path_state_) {
         case PathState::kWaitingStart:
           path_start_.first = mouseToMazePosition(mouse_pos_i).x;
@@ -81,7 +89,7 @@ void MazeView::handleEvent(const sf::Event& event,
       }
     }
   }
-}
+}  // namespace s21
 
 void MazeView::drawHorizontalWalls(sf::RenderTarget& target, float width,
                                    float height) const {
@@ -125,8 +133,19 @@ void MazeView::drawVerticalWalls(sf::RenderTarget& target, float width,
   }
 }
 
-void MazeView::drawSolutionPath(sf::RenderTarget& target, float width,
-                                float height) const {
+void MazeView::drawPoint(sf::RenderTarget& target, int row, int col) const {
+  sf::CircleShape circle(horizontalDashLenght() / 5);
+  circle.setPosition({static_cast<float>(col) * horizontalDashLenght() +
+                          horizontalDashLenght() / 2,
+                      static_cast<float>(row) * verticalDashLenght() +
+                          verticalDashLenght() / 2});
+  circle.setFillColor(sf::Color::Red);
+  target.draw(circle);
+}
+
+void MazeView::drawSolutionPath(sf::RenderTarget& target) const {
+  float width = horizontalDashLenght();
+  float height = verticalDashLenght();
   if (maze_->getPathSolution().empty()) {
     return;
   }

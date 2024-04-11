@@ -9,6 +9,7 @@
 #include "../core/maze.h"
 #include "SFML/Graphics/Rect.hpp"
 #include "SFML/Graphics/RectangleShape.hpp"
+#include "SFML/Graphics/RenderTarget.hpp"
 #include "ui_component.h"
 #include "ui_rectangle.h"
 
@@ -40,8 +41,8 @@ class MazeView : public UIRectangle {
                            float height) const;
   void drawVerticalWalls(sf::RenderTarget& target, float width,
                          float height) const;
-  void drawSolutionPath(sf::RenderTarget& target, float width,
-                        float height) const;
+  void drawSolutionPath(sf::RenderTarget& target) const;
+  void drawPoint(sf::RenderTarget& target, int row, int col) const;
   sf::FloatRect mazeBoundingBox() const;
   float mazeAspectRatio() const;
   sf::Vector2i mouseToMazePosition(const sf::Vector2i& mouse_pos_i) const;

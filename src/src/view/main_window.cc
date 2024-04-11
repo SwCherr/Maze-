@@ -45,18 +45,55 @@ MainWindow::MainWindow(Maze* maze)
   root_ui_component_.addComponent(maze_col_line_edit);
 }
 
+// void MainWindow::run() {
+//   while (window_.isOpen()) {
+//     sf::Event event;
+//     while (window_.pollEvent(event)) {
+//       if (event.type == sf::Event::Closed) {
+//         window_.close();
+//       }
+//       root_ui_component_.handleEvent(event, window_);
+//       window_.clear();
+//       root_ui_component_.draw(window_);
+//       window_.display();
+//     }
+//   }
+// }
 void MainWindow::run() {
+  bool needRedraw = true;
+
   while (window_.isOpen()) {
     sf::Event event;
+    bool eventProcessed = false;
+
     while (window_.pollEvent(event)) {
       if (event.type == sf::Event::Closed) {
         window_.close();
+      } else if (event.type == sf::Event::MouseButtonPressed ||
+                 event.type == sf::Event::MouseButtonReleased ||
+                 event.type == sf::Event::KeyPressed) {
+        eventProcessed = true;
       }
       root_ui_component_.handleEvent(event, window_);
+    }
+
+    if (eventProcessed) {
       window_.clear();
       root_ui_component_.draw(window_);
       window_.display();
+      needRedraw = false;
+    } else if (needRedraw) {
+      window_.clear();
+      root_ui_component_.draw(window_);
+      window_.display();
+      needRedraw = false;
+    }
+
+    // Обработка других событий, которые могут потребовать перерисовки окна
+    if (window_.hasFocus() && !window_.isOpen()) {
+      needRedraw = true;  // Устанавливаем флаг, если окно было восстановлено
     }
   }
 }
+
 }  // namespace s21
