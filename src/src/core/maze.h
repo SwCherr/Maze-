@@ -34,10 +34,10 @@ class Maze : public AbstractGrid {
   void generateMaze(int rows, int cols);
   bool solutionMaze(Coordinate A, Coordinate B);
 
-
  private:
   Matrix horizontal_;                       ///< horizontal walls
   Matrix vertical_;                         ///< vertical walls
+  Matrix solution_;                         // delete
   std::vector<Coordinate> path_solution_;   ///< solution path
 
   bool checkIsValidCoordinate(Coordinate A, Coordinate B) const;
@@ -52,7 +52,7 @@ class Maze : public AbstractGrid {
                                  std::vector<Coordinate> &neighbors);
   bool choiseRandUnvisitedNeighbor(Matrix &visit_matrix, Coordinate &cur_cell,
                                    std::vector<Coordinate> neighbors);
-  void writeSolutionMatrix(std::stack<Coordinate> stack_cell, int size_stack);
+  void writeSolutionMatrix(std::stack<Coordinate> stack_cell);
 };
 
 }  // namespace s21
