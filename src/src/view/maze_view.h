@@ -31,10 +31,10 @@ class MazeView : public UIRectangle {
   void draw(sf::RenderTarget& target) const override;
   void handleEvent(const sf::Event& event,
                    const sf::RenderWindow& window) override;
+  const float horizontalDashLenght() const;
+  const float verticalDashLenght() const;
 
  private:
-  float horizontalDashLenght() const;
-  float verticalDashLenght() const;
   void drawFrame(sf::RenderTarget& target) const;
   void drawHorizontalWalls(sf::RenderTarget& target, float width,
                            float height) const;

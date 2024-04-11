@@ -33,6 +33,7 @@ void MazeView::draw(sf::RenderTarget& target) const {
     drawVerticalWalls(target, horizontalDashLenght(), verticalDashLenght());
     drawHorizontalWalls(target, horizontalDashLenght(), verticalDashLenght());
     if (path_state_ == PathState::kRenderPath) {
+      drawSolutionPath(target, horizontalDashLenght(), verticalDashLenght());
     }
   }
 }
@@ -46,6 +47,10 @@ void MazeView::drawFrame(sf::RenderTarget& target) const {
 
 void MazeView::handleEvent(const sf::Event& event,
                            const sf::RenderWindow& window) {
+  if (maze_->getPathSolution().empty() &&
+      path_state_ == PathState::kRenderPath) {
+    path_state_ = PathState::kWaitingStart;
+  }
   if (event.type == sf::Event::MouseButtonPressed) {
     sf::Vector2i mouse_pos_i = sf::Mouse::getPosition(window);
     sf::Vector2f mouse_pos_f = window.mapPixelToCoords(mouse_pos_i);
@@ -63,13 +68,15 @@ void MazeView::handleEvent(const sf::Event& event,
           std::cout << path_end_.first << ' ' << path_end_.second << '\n';
           path_state_ = PathState::kRenderPath;
           maze_->solutionMaze(path_start_, path_end_);
+          for (int i = 0; i < maze_->getPathSolution().size(); ++i) {
+            std::cout << maze_->getPathSolution()[i].first << '.'
+                      << maze_->getPathSolution()[i].second << '\n';
+          }
           break;
         case PathState::kRenderPath:
           path_state_ = PathState::kClearPath;
-          break;
         case PathState::kClearPath:
           path_state_ = PathState::kWaitingStart;
-          // TODO clean path
           break;
       }
     }
@@ -123,15 +130,27 @@ void MazeView::drawSolutionPath(sf::RenderTarget& target, float width,
   if (maze_->getPathSolution().empty()) {
     return;
   }
-  sf::VertexArray line(sf::LinesStrip);
+  sf::VertexArray line(sf::LinesStrip, maze_->getPathSolution().size());
+
+  for (size_t i = 0; i < maze_->getPathSolution().size(); ++i) {
+    float x =
+        maze_->getPathSolution()[i].second * width + width / 2 + position_.x;
+    float y =
+        maze_->getPathSolution()[i].first * height + height / 2 + position_.y;
+    line[i].position = sf::Vector2f(x, y);
+    line[i].color = sf::Color::Red;
+  }
+  std::cout << maze_->getPathSolution().size() << "\n";
+
+  target.draw(line);
 }
 
-float MazeView::horizontalDashLenght() const {
+const float MazeView::horizontalDashLenght() const {
   return maze_->getCols() > maze_->getRows() ? size_.x / maze_->getCols()
                                              : size_.x / maze_->getRows();
 }
 
-float MazeView::verticalDashLenght() const {
+const float MazeView::verticalDashLenght() const {
   return maze_->getCols() > maze_->getRows() ? size_.x / maze_->getCols()
                                              : size_.x / maze_->getRows();
 }
