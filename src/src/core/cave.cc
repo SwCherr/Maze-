@@ -36,11 +36,13 @@ int Cave::numberOfNeighbors(int row, int col, const Matrix& matrix) {
       {1, -1},  {1, 0},  {1, 1}    /// < bot row
   };
   int count = 0;
-  for (const auto& dir : directions) { /// < checks for a neighbor outside the matrix
+  for (const auto& dir :
+       directions) {  /// < checks for a neighbor outside the matrix
     if (row + dir[0] < 0 || row + dir[0] >= static_cast<int>(matrix.size()) ||
         col + dir[1] < 0 || col + dir[1] >= static_cast<int>(matrix.size())) {
       ++count;
-    } else if (matrix[row + dir[0]][col + dir[1]] == true) { /// < checks for a living neighbor inside the matrix
+    } else if (matrix[row + dir[0]][col + dir[1]] ==
+               true) {  /// < checks for a living neighbor inside the matrix
       ++count;
     }
   }

@@ -38,10 +38,10 @@ class Maze : public AbstractGrid {
   bool solutionMaze(Coordinate A, Coordinate B);
 
  private:
-  Matrix horizontal_;                       ///< horizontal walls
-  Matrix vertical_;                         ///< vertical walls
-  Matrix solution_;                         // delete
-  std::vector<Coordinate> path_solution_;   ///< solution path
+  Matrix horizontal_;                      ///< horizontal walls
+  Matrix vertical_;                        ///< vertical walls
+  Matrix solution_;                        // delete
+  std::vector<Coordinate> path_solution_;  ///< solution path
 
   bool checkIsValidCoordinate(Coordinate A, Coordinate B) const;
   bool randomDecision() const;

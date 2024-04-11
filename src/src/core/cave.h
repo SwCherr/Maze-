@@ -32,7 +32,7 @@ class Cave : public AbstractGrid {
   // int cycleOfGeneration(int birth_limit, int death_limit);
 
  private:
-  Matrix data_;     ///< cave
+  Matrix data_;  ///< cave
 };
 }  // namespace s21
 

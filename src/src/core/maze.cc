@@ -27,8 +27,8 @@ int Maze::getCols() const noexcept {
 const Maze::Matrix &Maze::getHorizontal() const { return horizontal_; }
 const Maze::Matrix &Maze::getVirtical() const { return vertical_; }
 
-const std::vector<s21::Maze::Coordinate> &Maze::getPathSolution() const { 
-  return path_solution_; 
+const std::vector<s21::Maze::Coordinate> &Maze::getPathSolution() const {
+  return path_solution_;
 }
 
 bool Maze::checkIsValidMaze() const {
@@ -146,13 +146,14 @@ void Maze::preprocessingBeforeNextGeneration(std::vector<int> &numbers,
 }
 
 bool Maze::checkIsValidCoordinate(Coordinate A, Coordinate B) const {
-  return (A.row < getRows() && B.row < getRows() && 
-          A.col < getCols() && B.col < getCols());
+  return (A.row < getRows() && B.row < getRows() && A.col < getCols() &&
+          B.col < getCols());
 }
 
 bool Maze::solutionMaze(Coordinate A, Coordinate B) {
   bool is_exit = true;
-  if (!checkIsValidMaze() || !checkIsValidCoordinate(A, B)) is_exit = false;
+  if (!checkIsValidMaze() || !checkIsValidCoordinate(A, B))
+    is_exit = false;
   else {
     Coordinate cur_cell{A.row, A.col};
     Matrix visit_matrix(getRows(), std::vector<bool>(getCols()));
@@ -224,11 +225,11 @@ void Maze::writeSolutionMatrix(std::stack<Coordinate> stack_cell) {
     Coordinate cur_cell = stack_cell.top();
     path_solution_.resize(++size);
 
-    solution_.resize(getRows(), std::vector<bool>(getCols())); // delete
-    solution_[cur_cell.row][cur_cell.col] = true; // delete
+    solution_.resize(getRows(), std::vector<bool>(getCols()));  // delete
+    solution_[cur_cell.row][cur_cell.col] = true;               // delete
 
-    path_solution_[size-1].row = cur_cell.row;
-    path_solution_[size-1].col = cur_cell.col;
+    path_solution_[size - 1].row = cur_cell.row;
+    path_solution_[size - 1].col = cur_cell.col;
     stack_cell.pop();
   }
 }
@@ -263,8 +264,10 @@ void Maze::printDataSolution() const {
     for (int cols = 0; cols < (int)solution_[0].size(); cols++) {
       if (cols == 0) std::cout << rows << " - ";
       if (cols == 5) std::cout << " ";
-      if (solution_[rows][cols]) std::cout << "1";
-      else std::cout << "0";
+      if (solution_[rows][cols])
+        std::cout << "1";
+      else
+        std::cout << "0";
     }
     std::cout << '\n';
   }

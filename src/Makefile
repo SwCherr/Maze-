@@ -75,10 +75,21 @@ gcov_report: tests
 	@rm -rf *.gcda *.gcno *.info *.dSYM
 	$(OPEN_CMD) report/index.html
 
+dist:
+	git archive --format=tar --prefix=$(NAME_PROJECT)/ HEAD | gzip > $(NAME_PROJECT).tgz
+
+dvi:
+	doxygen Doxyfile
+	$(OPEN_CMD) ./documentation/html/index.html
+
 valgrind: tests
 	@CK_FORK=no valgrind --trace-children=yes --track-fds=yes --track-origins=yes --leak-check=full --show-leak-kinds=all ./$(TEST_EXECUTABLE)
 
-open_report:
+style_check:
+	@find . -type f -name '*.cc' -or -name '*.h' | xargs -I {} sh -c 'echo "Checking {}" && clang-format -n -style=Google {}'
+
+style_repair: clean
+	@find . -type f -name '*.cc' -or -name '*.h' | xargs -I {} sh -c 'echo "Checking {}" && clang-format -i -style=Google {}'
 
 clean:
 	rm -rf build
