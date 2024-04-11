@@ -23,16 +23,16 @@ Next, click on the "Generate" button.<br>
 
 To launch the maze solving function, click on any point in the displayed maze. The first press sets the starting point.<br>
 
-![Open file](./readme_resources/point_A.png){ width=400xp }
+![Open file](./readme_resources/point_A.png){ width=800px }
 
 Next, click again on any point of the displayed labyrinth. The second press sets the end point.<br>
 After this, a path to solve the maze between user-specified points will be constructed.<br>
 
-![Open file](./readme_resources/point_B.png){ width=400xp }
+![Open file](./readme_resources/point_B.png){ width=800px }
 
 To reset the maze solution, click on the displayed maze again.<br>
 
-![Open file](./readme_resources/clean_maze.png){ width=400xp }
+![Open file](./readme_resources/clean_maze.png){ width=800px }
 
 ## Installation
 To install, you will need cmake, make, and a GCC compiler.<br>
